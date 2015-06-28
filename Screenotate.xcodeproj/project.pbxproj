@@ -1,0 +1,408 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		074036131B3F71090098A404 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036121B3F71090098A404 /* AppDelegate.swift */; };
+		074036151B3F71090098A404 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074036141B3F71090098A404 /* Images.xcassets */; };
+		074036181B3F71090098A404 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074036161B3F71090098A404 /* MainMenu.xib */; };
+		074036241B3F71090098A404 /* ScreenotateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036231B3F71090098A404 /* ScreenotateTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0740361E1B3F71090098A404 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 074036051B3F71090098A404 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0740360C1B3F71090098A404;
+			remoteInfo = Screenotate;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0740360D1B3F71090098A404 /* Screenotate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Screenotate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		074036111B3F71090098A404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		074036121B3F71090098A404 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		074036141B3F71090098A404 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		074036171B3F71090098A404 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		0740361D1B3F71090098A404 /* ScreenotateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenotateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		074036221B3F71090098A404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		074036231B3F71090098A404 /* ScreenotateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenotateTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0740360A1B3F71090098A404 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0740361A1B3F71090098A404 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		074036041B3F71090098A404 = {
+			isa = PBXGroup;
+			children = (
+				0740360F1B3F71090098A404 /* Screenotate */,
+				074036201B3F71090098A404 /* ScreenotateTests */,
+				0740360E1B3F71090098A404 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0740360E1B3F71090098A404 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0740360D1B3F71090098A404 /* Screenotate.app */,
+				0740361D1B3F71090098A404 /* ScreenotateTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0740360F1B3F71090098A404 /* Screenotate */ = {
+			isa = PBXGroup;
+			children = (
+				074036121B3F71090098A404 /* AppDelegate.swift */,
+				074036141B3F71090098A404 /* Images.xcassets */,
+				074036161B3F71090098A404 /* MainMenu.xib */,
+				074036101B3F71090098A404 /* Supporting Files */,
+			);
+			path = Screenotate;
+			sourceTree = "<group>";
+		};
+		074036101B3F71090098A404 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				074036111B3F71090098A404 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		074036201B3F71090098A404 /* ScreenotateTests */ = {
+			isa = PBXGroup;
+			children = (
+				074036231B3F71090098A404 /* ScreenotateTests.swift */,
+				074036211B3F71090098A404 /* Supporting Files */,
+			);
+			path = ScreenotateTests;
+			sourceTree = "<group>";
+		};
+		074036211B3F71090098A404 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				074036221B3F71090098A404 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0740360C1B3F71090098A404 /* Screenotate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 074036271B3F71090098A404 /* Build configuration list for PBXNativeTarget "Screenotate" */;
+			buildPhases = (
+				074036091B3F71090098A404 /* Sources */,
+				0740360A1B3F71090098A404 /* Frameworks */,
+				0740360B1B3F71090098A404 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Screenotate;
+			productName = Screenotate;
+			productReference = 0740360D1B3F71090098A404 /* Screenotate.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0740361C1B3F71090098A404 /* ScreenotateTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0740362A1B3F71090098A404 /* Build configuration list for PBXNativeTarget "ScreenotateTests" */;
+			buildPhases = (
+				074036191B3F71090098A404 /* Sources */,
+				0740361A1B3F71090098A404 /* Frameworks */,
+				0740361B1B3F71090098A404 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0740361F1B3F71090098A404 /* PBXTargetDependency */,
+			);
+			name = ScreenotateTests;
+			productName = ScreenotateTests;
+			productReference = 0740361D1B3F71090098A404 /* ScreenotateTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		074036051B3F71090098A404 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Omar Rizwan";
+				TargetAttributes = {
+					0740360C1B3F71090098A404 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					0740361C1B3F71090098A404 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 0740360C1B3F71090098A404;
+					};
+				};
+			};
+			buildConfigurationList = 074036081B3F71090098A404 /* Build configuration list for PBXProject "Screenotate" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 074036041B3F71090098A404;
+			productRefGroup = 0740360E1B3F71090098A404 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0740360C1B3F71090098A404 /* Screenotate */,
+				0740361C1B3F71090098A404 /* ScreenotateTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0740360B1B3F71090098A404 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				074036151B3F71090098A404 /* Images.xcassets in Resources */,
+				074036181B3F71090098A404 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0740361B1B3F71090098A404 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		074036091B3F71090098A404 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				074036131B3F71090098A404 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		074036191B3F71090098A404 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				074036241B3F71090098A404 /* ScreenotateTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0740361F1B3F71090098A404 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0740360C1B3F71090098A404 /* Screenotate */;
+			targetProxy = 0740361E1B3F71090098A404 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		074036161B3F71090098A404 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				074036171B3F71090098A404 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		074036251B3F71090098A404 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		074036261B3F71090098A404 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		074036281B3F71090098A404 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Screenotate/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		074036291B3F71090098A404 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Screenotate/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0740362B1B3F71090098A404 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ScreenotateTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Screenotate.app/Contents/MacOS/Screenotate";
+			};
+			name = Debug;
+		};
+		0740362C1B3F71090098A404 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ScreenotateTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Screenotate.app/Contents/MacOS/Screenotate";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		074036081B3F71090098A404 /* Build configuration list for PBXProject "Screenotate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				074036251B3F71090098A404 /* Debug */,
+				074036261B3F71090098A404 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		074036271B3F71090098A404 /* Build configuration list for PBXNativeTarget "Screenotate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				074036281B3F71090098A404 /* Debug */,
+				074036291B3F71090098A404 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0740362A1B3F71090098A404 /* Build configuration list for PBXNativeTarget "ScreenotateTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0740362B1B3F71090098A404 /* Debug */,
+				0740362C1B3F71090098A404 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 074036051B3F71090098A404 /* Project object */;
+}
