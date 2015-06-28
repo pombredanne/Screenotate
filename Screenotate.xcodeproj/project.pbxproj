@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073FC9DB1B407FAC00EF316D /* UIElementUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FC9DA1B407FAC00EF316D /* UIElementUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		074036131B3F71090098A404 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036121B3F71090098A404 /* AppDelegate.swift */; };
 		074036151B3F71090098A404 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074036141B3F71090098A404 /* Images.xcassets */; };
 		074036181B3F71090098A404 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074036161B3F71090098A404 /* MainMenu.xib */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		073FC9D91B407FAC00EF316D /* UIElementUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElementUtilities.h; sourceTree = "<group>"; };
+		073FC9DA1B407FAC00EF316D /* UIElementUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIElementUtilities.m; sourceTree = "<group>"; };
 		0740360D1B3F71090098A404 /* Screenotate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Screenotate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		074036111B3F71090098A404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		074036121B3F71090098A404 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 		0740360F1B3F71090098A404 /* Screenotate */ = {
 			isa = PBXGroup;
 			children = (
+				073FC9D91B407FAC00EF316D /* UIElementUtilities.h */,
+				073FC9DA1B407FAC00EF316D /* UIElementUtilities.m */,
 				074036121B3F71090098A404 /* AppDelegate.swift */,
 				074036141B3F71090098A404 /* Images.xcassets */,
 				074036161B3F71090098A404 /* MainMenu.xib */,
@@ -277,6 +282,7 @@
 			files = (
 				074036131B3F71090098A404 /* AppDelegate.swift in Sources */,
 				074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */,
+				073FC9DB1B407FAC00EF316D /* UIElementUtilities.m in Sources */,
 				074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */,
 				0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */,
 			);

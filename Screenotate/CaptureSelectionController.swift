@@ -11,6 +11,8 @@ import Cocoa
 
 class CaptureSelectionController: NSObject, NSWindowDelegate {
     var selectionWindowArray = [CaptureSelectionWindow]()
+    
+    let systemWideElement = AXUIElementCreateSystemWide().takeRetainedValue()
 
     func preCapture() {
         let screens = NSScreen.screens() as [NSScreen]
@@ -65,6 +67,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
     func postCapture(window: CaptureSelectionWindow) {
         println("post capture")
+        println(window.selectionRect)
 
         if (!window.isSelectionDone) {
             return
@@ -75,17 +78,73 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         }
         
         usleep(30000)
+
+        // figure out which window is under point
+        let infoRef = CGWindowListCopyWindowInfo(CGWindowListOption(kCGWindowListOptionOnScreenOnly), CGWindowID(0))
+        let info = infoRef.takeRetainedValue() as Array<NSDictionary>
+
+        var windowUnderPoint: (name: String?, ownerName: String?)?
+
+        for windowInfo in info {
+            let windowBounds = windowInfo["kCGWindowBounds"] as CFDictionary
+            var windowRect = CGRect()
+            CGRectMakeWithDictionaryRepresentation(windowBounds, &windowRect)
+
+            let windowLayer = windowInfo["kCGWindowLayer"] as Int
+            let windowOwnerName = windowInfo["kCGWindowOwnerName"] as String?
+            
+            if windowOwnerName == "Dock" { // FIXME kind of a hack
+                continue
+            }
+            
+            if windowRect.contains(window.selectionRect.origin) {
+                // info is ordered front to back so just return
+                windowUnderPoint = (
+                    name: windowInfo["kCGWindowName"] as String?,
+                    ownerName: windowOwnerName
+                )
+                break
+            }
+        }
+
+        println(windowUnderPoint)
+
+        let origin = window.selectionRect.origin
+
+        var uelement: Unmanaged<AXUIElement>? = nil
+        var err = AXUIElementCopyElementAtPosition(systemWideElement, Float(origin.x), Float(origin.y), &uelement)
+        if (Int(err) != Int(kAXErrorSuccess) || uelement == nil) {
+            return
+        }
+
+        var element = uelement!.takeRetainedValue()
         
-        var mainID = window.displayID
-        var mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained
-        var mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.selectionRect)
+        println("title of UI element:")
+        println(UIElementUtilities.titleOfUIElement(element))
+        
+        println("lineage of UI element:")
+        println(UIElementUtilities.lineageDescriptionOfUIElement(element))
 
-        var mainMutData = CFDataCreateMutable(nil, 0)
-        var dspyDestType = "public.png"
-        var mainDest = CGImageDestinationCreateWithData(mainMutData, dspyDestType, 1, nil)
+        var parent = UIElementUtilities.parentOfUIElement(element).takeUnretainedValue()
 
-        CGImageDestinationAddImage(mainDest, mainCroppedCGImage, nil)
+        var parentTitle = UIElementUtilities.titleOfUIElement(parent)
+        println("title of parent:")
+        println(parentTitle)
 
-        CGImageDestinationFinalize(mainDest)
+//
+//        var data = window.dataWithPDFInsideRect(window.selectionRect)
+//        data.writeToFile("/Users/Omar/foo.pdf", atomically: true)
+
+//        var mainID = window.displayID
+//        var mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained
+//        var mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.selectionRect)
+//
+//        var mainMutData = CFDataCreateMutable(nil, 0)
+//        var dspyDestType = "public.png"
+//        var mainDest = CGImageDestinationCreateWithData(mainMutData, dspyDestType, 1, nil)
+//
+//        CGImageDestinationAddImage(mainDest, mainCroppedCGImage, nil)
+//
+//        CGImageDestinationFinalize(mainDest)
     }
 }
