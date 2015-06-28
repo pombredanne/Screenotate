@@ -13,6 +13,8 @@
 		074036241B3F71090098A404 /* ScreenotateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036231B3F71090098A404 /* ScreenotateTests.swift */; };
 		0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */; };
 		074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */; };
+		074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036311B3F84420098A404 /* CaptureSelectionController.swift */; };
+		83A48A6556F3DFE01B78EB12 /* libPods-Screenotate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,11 @@
 		074036231B3F71090098A404 /* ScreenotateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenotateTests.swift; sourceTree = "<group>"; };
 		0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionWindow.swift; sourceTree = "<group>"; };
 		0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionView.swift; sourceTree = "<group>"; };
+		074036311B3F84420098A404 /* CaptureSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionController.swift; sourceTree = "<group>"; };
+		07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Screenotate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenotate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate.debug.xcconfig"; sourceTree = "<group>"; };
+		6DE7901AE189243D1D4A54F5 /* Pods-Screenotate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenotate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A48A6556F3DFE01B78EB12 /* libPods-Screenotate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +70,8 @@
 				0740360F1B3F71090098A404 /* Screenotate */,
 				074036201B3F71090098A404 /* ScreenotateTests */,
 				0740360E1B3F71090098A404 /* Products */,
+				987EDE96DA7069913CB972FD /* Pods */,
+				92B1F17A5BFB0B3619D1F2CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +93,8 @@
 				074036101B3F71090098A404 /* Supporting Files */,
 				0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */,
 				0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */,
+				074036311B3F84420098A404 /* CaptureSelectionController.swift */,
+				07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */,
 			);
 			path = Screenotate;
 			sourceTree = "<group>";
@@ -112,6 +124,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		92B1F17A5BFB0B3619D1F2CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		987EDE96DA7069913CB972FD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */,
+				6DE7901AE189243D1D4A54F5 /* Pods-Screenotate.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +148,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 074036271B3F71090098A404 /* Build configuration list for PBXNativeTarget "Screenotate" */;
 			buildPhases = (
+				913C6241D192E16B9668BCEB /* Check Pods Manifest.lock */,
 				074036091B3F71090098A404 /* Sources */,
 				0740360A1B3F71090098A404 /* Frameworks */,
 				0740360B1B3F71090098A404 /* Resources */,
+				3876BE6C96971F0024D1DC8B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -206,6 +237,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3876BE6C96971F0024D1DC8B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		913C6241D192E16B9668BCEB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		074036091B3F71090098A404 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -213,6 +277,7 @@
 			files = (
 				074036131B3F71090098A404 /* AppDelegate.swift in Sources */,
 				074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */,
+				074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */,
 				0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,23 +391,29 @@
 		};
 		074036281B3F71090098A404 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Screenotate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Screenotate/Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
 			};
 			name = Debug;
 		};
 		074036291B3F71090098A404 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DE7901AE189243D1D4A54F5 /* Pods-Screenotate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Screenotate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Screenotate/Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "Pods/**";
 			};
 			name = Release;
 		};
