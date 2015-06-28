@@ -91,11 +91,6 @@ extern NSString *const UIElementUtilitiesNoDescription;
 + (CGPoint)carbonScreenPointFromCocoaScreenPoint:(NSPoint)cocoaPoint;
 
 #pragma mark -
-#pragma mark Lineage
-+ (NSArray *)lineageOfUIElement:(AXUIElementRef)element;
-+ (NSString *)lineageDescriptionOfUIElement:(AXUIElementRef)element;
-
-#pragma mark -
 #pragma mark String Descriptions
 /* Methods to return the various strings displayed in the interface */
 + (NSString *)stringDescriptionOfUIElement:(AXUIElementRef)inElement; // Note this is NOT nec. the AXDescription of the UIElement

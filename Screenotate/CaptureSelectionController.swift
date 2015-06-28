@@ -66,9 +66,6 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     }
 
     func postCapture(window: CaptureSelectionWindow) {
-        println("post capture")
-        println(window.selectionRect)
-
         if (!window.isSelectionDone) {
             return
         }
@@ -79,36 +76,6 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         
         usleep(30000)
 
-        // figure out which window is under point
-        let infoRef = CGWindowListCopyWindowInfo(CGWindowListOption(kCGWindowListOptionOnScreenOnly), CGWindowID(0))
-        let info = infoRef.takeRetainedValue() as Array<NSDictionary>
-
-        var windowUnderPoint: (name: String?, ownerName: String?)?
-
-        for windowInfo in info {
-            let windowBounds = windowInfo["kCGWindowBounds"] as CFDictionary
-            var windowRect = CGRect()
-            CGRectMakeWithDictionaryRepresentation(windowBounds, &windowRect)
-
-            let windowLayer = windowInfo["kCGWindowLayer"] as Int
-            let windowOwnerName = windowInfo["kCGWindowOwnerName"] as String?
-            
-            if windowOwnerName == "Dock" { // FIXME kind of a hack
-                continue
-            }
-            
-            if windowRect.contains(window.selectionRect.origin) {
-                // info is ordered front to back so just return
-                windowUnderPoint = (
-                    name: windowInfo["kCGWindowName"] as String?,
-                    ownerName: windowOwnerName
-                )
-                break
-            }
-        }
-
-        println(windowUnderPoint)
-
         let origin = window.selectionRect.origin
 
         var uelement: Unmanaged<AXUIElement>? = nil
@@ -118,33 +85,37 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         }
 
         var element = uelement!.takeRetainedValue()
+
+        let title = UIElementUtilities.titleOfUIElement(element)
+
+        let originWindow = windowUIElement(element)
+        let windowTitle = UIElementUtilities.titleOfUIElement(originWindow)
         
-        println("title of UI element:")
-        println(UIElementUtilities.titleOfUIElement(element))
+        let originApplication = applicationUIElement(element)
+        let applicationTitle = UIElementUtilities.titleOfUIElement(originApplication)
+
+        let mainID = window.displayID
+        let mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained
+        let mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.selectionRect)
+
+        var mainMutData = NSMutableData()
+        let dspyDestType = "public.png"
+        var mainDest = CGImageDestinationCreateWithData(mainMutData, dspyDestType, 1, nil)
+
+        CGImageDestinationAddImage(mainDest, mainCroppedCGImage, nil)
+        CGImageDestinationFinalize(mainDest)
         
-        println("lineage of UI element:")
-        println(UIElementUtilities.lineageDescriptionOfUIElement(element))
-
-        var parent = UIElementUtilities.parentOfUIElement(element).takeUnretainedValue()
-
-        var parentTitle = UIElementUtilities.titleOfUIElement(parent)
-        println("title of parent:")
-        println(parentTitle)
-
-//
-//        var data = window.dataWithPDFInsideRect(window.selectionRect)
-//        data.writeToFile("/Users/Omar/foo.pdf", atomically: true)
-
-//        var mainID = window.displayID
-//        var mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained
-//        var mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.selectionRect)
-//
-//        var mainMutData = CFDataCreateMutable(nil, 0)
-//        var dspyDestType = "public.png"
-//        var mainDest = CGImageDestinationCreateWithData(mainMutData, dspyDestType, 1, nil)
-//
-//        CGImageDestinationAddImage(mainDest, mainCroppedCGImage, nil)
-//
-//        CGImageDestinationFinalize(mainDest)
+        let uri = "data:image/png;base64,\(mainMutData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros))"
+        
+        if let dirs: [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String] {
+            
+            let dir = dirs[0]
+            let path = dir.stringByAppendingPathComponent("screenshot.html")
+            
+            let html = "<html><body><img src=\(uri)></body></html>"
+            html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+            
+            NSWorkspace.sharedWorkspace().openFile(path)
+        }
     }
 }
