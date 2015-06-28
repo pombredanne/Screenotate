@@ -11,6 +11,8 @@
 		074036151B3F71090098A404 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074036141B3F71090098A404 /* Images.xcassets */; };
 		074036181B3F71090098A404 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074036161B3F71090098A404 /* MainMenu.xib */; };
 		074036241B3F71090098A404 /* ScreenotateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036231B3F71090098A404 /* ScreenotateTests.swift */; };
+		0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */; };
+		074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,8 @@
 		0740361D1B3F71090098A404 /* ScreenotateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenotateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		074036221B3F71090098A404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		074036231B3F71090098A404 /* ScreenotateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenotateTests.swift; sourceTree = "<group>"; };
+		0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionWindow.swift; sourceTree = "<group>"; };
+		0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 				074036141B3F71090098A404 /* Images.xcassets */,
 				074036161B3F71090098A404 /* MainMenu.xib */,
 				074036101B3F71090098A404 /* Supporting Files */,
+				0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */,
+				0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */,
 			);
 			path = Screenotate;
 			sourceTree = "<group>";
@@ -206,6 +212,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				074036131B3F71090098A404 /* AppDelegate.swift in Sources */,
+				074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */,
+				0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +401,7 @@
 				074036291B3F71090098A404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0740362A1B3F71090098A404 /* Build configuration list for PBXNativeTarget "ScreenotateTests" */ = {
 			isa = XCConfigurationList;
@@ -401,6 +410,7 @@
 				0740362C1B3F71090098A404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
