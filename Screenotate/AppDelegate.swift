@@ -25,13 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func handler() {
-        if (controller? != nil) {
-            controller = nil
+        NSApp.activateIgnoringOtherApps(true)
 
-        } else {
-            controller = CaptureSelectionController()
-            controller?.preCapture()
-        }
+        controller = CaptureSelectionController()
+        controller?.preCapture()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

@@ -15,6 +15,7 @@ class CaptureSelectionWindow: NSWindow {
     var displayID: CGDirectDisplayID!
 
     var originPoint: NSPoint!
+    var viewRect: NSRect!
 
     var isSelectionDone: Bool!
     var selectionRect: CGRect!
@@ -43,12 +44,10 @@ class CaptureSelectionWindow: NSWindow {
         var dspyIDCount: UInt32 = 0
 
         if Int(CGGetDisplaysWithRect(displayRect, 1, &dspyIDArray, &dspyIDCount)) == Int(kCGErrorSuccess.value) {
-
             displayID = dspyIDArray[0]
 
         } else {
-            super.init(coder: NSCoder()) // FIXME ???
-            return nil
+            fatalError("not able to find displays")
         }
 
         super.init(contentRect: displayRect, styleMask: NSBorderlessWindowMask, backing: NSBackingStoreType.Buffered, defer: true)
@@ -92,6 +91,43 @@ class CaptureSelectionWindow: NSWindow {
     }
     
     override func mouseDown(theEvent: NSEvent) {
+        originPoint = theEvent.locationInWindow
+        viewRect = NSMakeRect(originPoint.x, originPoint.y, 0, 0)
+        selectionView.frame = viewRect
+        
+        let contentView = self.contentView as NSView
+        contentView.addSubview(selectionView)
+        
+        NSCursor.crosshairCursor().set()
+    }
+    
+    override func mouseDragged(theEvent: NSEvent) {
+        let currentPoint = theEvent.locationInWindow
+        
+        let viewX = currentPoint.x > originPoint.x ? originPoint.x : currentPoint.x
+        let viewY = currentPoint.y > originPoint.y ? originPoint.y : currentPoint.y
+        let viewW = currentPoint.x > originPoint.x ? currentPoint.x - originPoint.x : originPoint.x - currentPoint.x
+        let viewH = currentPoint.y > originPoint.y ? currentPoint.y - originPoint.y : originPoint.y - currentPoint.y
 
+        viewRect = NSMakeRect(viewX, viewY, viewW, viewH)
+        selectionView.frame = viewRect
+        NSCursor.crosshairCursor().set()
+    }
+    
+    override func mouseUp(theEvent: NSEvent) {
+        isSelectionDone = true
+        
+        selectionRect = CGRectMake(viewRect.origin.x,
+            displayRect.size.height - viewRect.origin.y - viewRect.size.height,
+            viewRect.size.width,
+            viewRect.size.height)
+        
+        self.close()
+    }
+    
+    override func keyDown(theEvent: NSEvent) {
+        if theEvent.keyCode == 53 {
+            self.close()
+        }
     }
 }

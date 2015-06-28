@@ -23,11 +23,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
             selectionWindow.delegate = self
             selectionWindow.makeKeyAndOrderFront(self)
             selectionWindow.display()
-            
-            // TODO figure out if I need to delete from the array
-            // (not releasing since Swift has GC)
         }
-        
+
         var mouse: NSPoint = NSEvent.mouseLocation()
         var mouseX = mouse.x
         var mouseY = mouse.y
@@ -90,12 +87,5 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         CGImageDestinationAddImage(mainDest, mainCroppedCGImage, nil)
 
         CGImageDestinationFinalize(mainDest)
-    }
-    func windowDidBecomeKey(notification: NSNotification) {
-        println("became key")
-    }
-    
-    func windowDidResignKey(notification: NSNotification) {
-        println("hey, you resigend key")
     }
 }
