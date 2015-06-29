@@ -66,6 +66,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     }
 
     func postCapture(window: CaptureSelectionWindow) {
+        println(window.selectionRect)
+
         if (!window.isSelectionDone) {
             return
         }
@@ -96,7 +98,10 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         let mainID = window.displayID
         let mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained
-        let mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.selectionRect)
+        // note that CGImageCreateWithImageInRect takes pixel rect, not point rect:
+        // https://stackoverflow.com/questions/28469202/why-does-cgimagecreatewithimageinrect-take-a-cgrect-with-points-but-then-use-pix
+        // so we need to convertRectToBacking
+        let mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.convertRectToBacking(window.selectionRect))
 
         var mainMutData = NSMutableData()
         let dspyDestType = "public.png"
@@ -110,9 +115,25 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         if let dirs: [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String] {
             
             let dir = dirs[0]
-            let path = dir.stringByAppendingPathComponent("screenshot.html")
-            
-            let html = "<html><body><img src=\(uri)></body></html>"
+
+            let date = NSDate()
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd 'at' h.mm.ss a"
+            let timestamp = formatter.stringFromDate(date)
+
+            let filename = "Screen Shot \(timestamp).html"
+            let path = dir.stringByAppendingPathComponent(filename)
+
+            let html = "\n".join([
+                "<html>",
+                    "<head>",
+                        "<title>\(windowTitle), \(timestamp)</title>",
+                    "</head>",
+                    "<body>",
+                        "<img height=\"\(window.selectionRect.height)\" src=\"\(uri)\">",
+                    "</body>",
+                "</html>"
+                ])
             html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
             
             NSWorkspace.sharedWorkspace().openFile(path)

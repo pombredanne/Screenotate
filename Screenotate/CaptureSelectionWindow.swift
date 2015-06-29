@@ -54,7 +54,7 @@ class CaptureSelectionWindow: NSWindow {
 
         self.level = Int(CGWindowLevelForKey(Int32(kCGMainMenuWindowLevelKey))) + 1
         self.opaque = false
-        self.backgroundColor = NSColor.greenColor().colorWithAlphaComponent(0.9) //.whiteColor().colorWithAlphaComponent(0.1)
+        self.backgroundColor = NSColor.whiteColor().colorWithAlphaComponent(0.1)
         self.releasedWhenClosed = false
         self.oneShot = true
 
