@@ -16,6 +16,7 @@
 		0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */; };
 		074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */; };
 		074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036311B3F84420098A404 /* CaptureSelectionController.swift */; };
+		0765C79F1B425542008EF5AB /* ScreenotatePreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0765C79E1B425542008EF5AB /* ScreenotatePreferencesController.swift */; };
 		83A48A6556F3DFE01B78EB12 /* libPods-Screenotate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionWindow.swift; sourceTree = "<group>"; };
 		0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionView.swift; sourceTree = "<group>"; };
 		074036311B3F84420098A404 /* CaptureSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionController.swift; sourceTree = "<group>"; };
+		0765C79E1B425542008EF5AB /* ScreenotatePreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenotatePreferencesController.swift; sourceTree = "<group>"; };
 		07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Screenotate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenotate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate.debug.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				074036121B3F71090098A404 /* AppDelegate.swift */,
 				074036141B3F71090098A404 /* Images.xcassets */,
 				074036161B3F71090098A404 /* MainMenu.xib */,
+				0765C79E1B425542008EF5AB /* ScreenotatePreferencesController.swift */,
 				074036101B3F71090098A404 /* Supporting Files */,
 				0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */,
 				0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */,
@@ -285,6 +288,7 @@
 			files = (
 				074036131B3F71090098A404 /* AppDelegate.swift in Sources */,
 				074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */,
+				0765C79F1B425542008EF5AB /* ScreenotatePreferencesController.swift in Sources */,
 				073FC9DB1B407FAC00EF316D /* UIElementUtilities.m in Sources */,
 				074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */,
 				0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */,

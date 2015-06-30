@@ -113,7 +113,7 @@ class CaptureSelectionWindow: NSWindow {
         selectionView.frame = viewRect
         NSCursor.crosshairCursor().set()
     }
-    
+
     override func mouseUp(theEvent: NSEvent) {
         isSelectionDone = true
         

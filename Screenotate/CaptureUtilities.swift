@@ -52,3 +52,7 @@ func windowUIElement(element: AXUIElement) -> AXUIElement? {
     
     return nil
 }
+
+func htmlEncode(string: String) -> String {
+    return CFXMLCreateStringByEscapingEntities(nil, string, nil)
+}
