@@ -13,10 +13,9 @@ import Carbon
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
+    @IBOutlet weak var preferencesWindow: NSWindow!
     
     var statusBar: NSStatusItem!
-    
-    var preferencesController: ScreenotatePreferencesController?
 
     let keyCode = UInt(kVK_ANSI_5)
     let keyMask: NSEventModifierFlags = .CommandKeyMask | .ShiftKeyMask
@@ -45,11 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func showPreferencesWindow(sender: AnyObject) {
-        if preferencesController == nil {
-            preferencesController = ScreenotatePreferencesController()
-        }
-        
-        preferencesController?.showWindow(self)
+        preferencesWindow.makeKeyAndOrderFront(self)
+        NSApp.activateIgnoringOtherApps(true)
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

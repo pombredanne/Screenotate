@@ -14,12 +14,12 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Screenotate" customModuleProvider="target">
             <connections>
+                <outlet property="preferencesWindow" destination="QvC-M9-y7g" id="Ugk-EJ-zzb"/>
                 <outlet property="statusMenu" destination="ZQM-3h-5aS" id="eue-O6-bHT"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <window title="Screenotate Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Screenotate Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="387" height="160"/>
@@ -81,7 +81,8 @@
         </window>
         <menu id="ZQM-3h-5aS">
             <items>
-                <menuItem title="Screenotate Preferences..." keyEquivalent="," id="KlA-2P-Xzu">
+                <menuItem title="Screenotate Preferences..." id="KlA-2P-Xzu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showPreferencesWindow:" target="Voe-Tx-rLC" id="bAv-oE-AWg"/>
                     </connections>
