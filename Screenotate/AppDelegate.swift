@@ -9,6 +9,8 @@
 import Cocoa
 import Carbon
 
+import OAuth2
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -19,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     let keyCode = UInt(kVK_ANSI_5)
     let keyMask: NSEventModifierFlags = .CommandKeyMask | .ShiftKeyMask
+
+    var settings: OAuth2JSON!
+    var oauth2: OAuth2ImplicitGrant!
 
     var controller: CaptureSelectionController?
 
@@ -34,6 +39,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         let shortcut = MASShortcut(keyCode: keyCode, modifierFlags: keyMask.rawValue)
         MASShortcutMonitor.sharedMonitor().registerShortcut(shortcut, withAction: self.handler)
+
+        let keys = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Keys", ofType: "plist")!)!
+        let appKey = keys["Dropbox API key"] as! String
+
+        settings = [
+            "client_id": appKey,
+            "authorize_uri": "https://www.dropbox.com/1/oauth2/authorize",
+            "token_uri": "https://api.dropbox.com/1/oauth2/token",
+            "redirect_uris": ["db-" + appKey + "://oauth/callback"]
+        ] as OAuth2JSON
+
+        oauth2 = OAuth2ImplicitGrant(settings: settings)
+        oauth2.viewTitle = "Screenotate"
     }
     
     func handler() {
@@ -46,6 +64,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func showPreferencesWindow(sender: AnyObject) {
         preferencesWindow.makeKeyAndOrderFront(self)
         NSApp.activateIgnoringOtherApps(true)
+    }
+
+    @IBAction func linkToDropbox(sender: AnyObject) {
+        oauth2.authorize()
+    }
+
+    func authHelperStateChangedNotification(notification: NSNotification) {
+//        println(DBSession.sharedSession().isLinked())
+    }
+
+    @IBAction func quitScreenotate(sender: AnyObject) {
+        NSApplication.sharedApplication().terminate(self)
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

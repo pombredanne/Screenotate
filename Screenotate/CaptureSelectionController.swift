@@ -15,7 +15,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     let systemWideElement = AXUIElementCreateSystemWide().takeRetainedValue()
 
     func preCapture() {
-        let screens = NSScreen.screens() as [NSScreen]
+        let screens = NSScreen.screens() as! [NSScreen]
 
         for screen in screens {
             var selectionWindow: CaptureSelectionWindow = CaptureSelectionWindow.init(scr: screen)!
@@ -45,7 +45,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     }
 
     func windowWillClose(notification: NSNotification) {
-        let selectionWindow = notification.object as CaptureSelectionWindow
+        let selectionWindow = notification.object as! CaptureSelectionWindow
 
         if selectionWindow.isSelectionDone! {
             for window in selectionWindowArray {
@@ -53,7 +53,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     window.close()
                 }
                 
-                let contentView = window.contentView as NSView
+                let contentView = window.contentView as! NSView
                 contentView.hidden = true
             }
             

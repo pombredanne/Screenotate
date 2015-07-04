@@ -74,6 +74,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="linkToDropbox:" target="Voe-Tx-rLC" id="7Nd-Aa-rr3"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
@@ -85,6 +88,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showPreferencesWindow:" target="Voe-Tx-rLC" id="bAv-oE-AWg"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Quit Screenotate" id="3Ve-dr-0LR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quitScreenotate:" target="Voe-Tx-rLC" id="GGV-W1-jUa"/>
                     </connections>
                 </menuItem>
             </items>

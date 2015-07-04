@@ -1,0 +1,6 @@
+[submodule "OAuth2"]
+	path = OAuth2
+	url = https://github.com/p2/OAuth2
+[submodule "MASShortcut"]
+	path = MASShortcut
+	url = https://github.com/shpakovski/MASShortcut

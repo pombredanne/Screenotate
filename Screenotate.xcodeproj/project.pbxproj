@@ -16,7 +16,11 @@
 		0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */; };
 		074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */; };
 		074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036311B3F84420098A404 /* CaptureSelectionController.swift */; };
-		83A48A6556F3DFE01B78EB12 /* libPods-Screenotate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */; };
+		07A8CD381B466BE900D22D41 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07A8CD371B466BE900D22D41 /* Keys.plist */; };
+		07C8F4C41B4769EB00922F85 /* OAuth2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4B51B47693600922F85 /* OAuth2.framework */; };
+		07C8F4C51B4769EB00922F85 /* OAuth2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4B51B47693600922F85 /* OAuth2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		07C8F4C81B4769EB00922F85 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4AC1B47693600922F85 /* MASShortcut.framework */; };
+		07C8F4C91B4769EB00922F85 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4AC1B47693600922F85 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,7 +31,92 @@
 			remoteGlobalIDString = 0740360C1B3F71090098A404;
 			remoteInfo = Screenotate;
 		};
+		07C8F4AB1B47693600922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0D827CD31990D4420010B8EF;
+			remoteInfo = MASShortcut;
+		};
+		07C8F4AD1B47693600922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0D827D8319910AFF0010B8EF;
+			remoteInfo = MASShortcutTests;
+		};
+		07C8F4AF1B47693600922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0D827D371990D5E70010B8EF;
+			remoteInfo = Demo;
+		};
+		07C8F4B41B47693600922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEE209471942772800736F1A;
+			remoteInfo = OAuth2;
+		};
+		07C8F4B61B47693600922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEDB8624193FAAE500C4EEA1;
+			remoteInfo = OAuth2iOS;
+		};
+		07C8F4B81B47693600922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EEE209A219427DFE00736F1A;
+			remoteInfo = OAuth2Tests;
+		};
+		07C8F4BA1B47695100922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D827CD21990D4420010B8EF;
+			remoteInfo = MASShortcut;
+		};
+		07C8F4BC1B47695400922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EEE209461942772800736F1A;
+			remoteInfo = OAuth2;
+		};
+		07C8F4C61B4769EB00922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EEE209461942772800736F1A;
+			remoteInfo = OAuth2;
+		};
+		07C8F4CA1B4769EB00922F85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D827CD21990D4420010B8EF;
+			remoteInfo = MASShortcut;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		07C8F4CC1B4769EB00922F85 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07C8F4C91B4769EB00922F85 /* MASShortcut.framework in Embed Frameworks */,
+				07C8F4C51B4769EB00922F85 /* OAuth2.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		073FC9D91B407FAC00EF316D /* UIElementUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElementUtilities.h; sourceTree = "<group>"; };
@@ -44,10 +133,11 @@
 		0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionWindow.swift; sourceTree = "<group>"; };
 		0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionView.swift; sourceTree = "<group>"; };
 		074036311B3F84420098A404 /* CaptureSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionController.swift; sourceTree = "<group>"; };
+		07A8CD371B466BE900D22D41 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2.xcodeproj; path = OAuth2/OAuth2.xcodeproj; sourceTree = "<group>"; };
+		07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MASShortcut.xcodeproj; path = MASShortcut/MASShortcut.xcodeproj; sourceTree = "<group>"; };
 		07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Screenotate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenotate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate.debug.xcconfig"; sourceTree = "<group>"; };
-		6DE7901AE189243D1D4A54F5 /* Pods-Screenotate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenotate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate.release.xcconfig"; sourceTree = "<group>"; };
+		E3AE754F54731E1BBABC9482 /* Pods_Screenotate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Screenotate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A48A6556F3DFE01B78EB12 /* libPods-Screenotate.a in Frameworks */,
+				07C8F4C81B4769EB00922F85 /* MASShortcut.framework in Frameworks */,
+				07C8F4C41B4769EB00922F85 /* OAuth2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,10 +163,11 @@
 		074036041B3F71090098A404 = {
 			isa = PBXGroup;
 			children = (
+				07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */,
+				07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */,
 				0740360F1B3F71090098A404 /* Screenotate */,
 				074036201B3F71090098A404 /* ScreenotateTests */,
 				0740360E1B3F71090098A404 /* Products */,
-				987EDE96DA7069913CB972FD /* Pods */,
 				92B1F17A5BFB0B3619D1F2CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +195,7 @@
 				074036311B3F84420098A404 /* CaptureSelectionController.swift */,
 				07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */,
 				073FC9DC1B40AAFB00EF316D /* CaptureUtilities.swift */,
+				07A8CD371B466BE900D22D41 /* Keys.plist */,
 			);
 			path = Screenotate;
 			sourceTree = "<group>";
@@ -132,21 +225,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		07C8F4A31B47693600922F85 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07C8F4B51B47693600922F85 /* OAuth2.framework */,
+				07C8F4B71B47693600922F85 /* OAuth2.framework */,
+				07C8F4B91B47693600922F85 /* OAuth2Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07C8F4A61B47693600922F85 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07C8F4AC1B47693600922F85 /* MASShortcut.framework */,
+				07C8F4AE1B47693600922F85 /* MASShortcutTests.xctest */,
+				07C8F4B01B47693600922F85 /* Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		92B1F17A5BFB0B3619D1F2CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				23A6D610EB85A59042C8A231 /* libPods-Screenotate.a */,
+				E3AE754F54731E1BBABC9482 /* Pods_Screenotate.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		987EDE96DA7069913CB972FD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */,
-				6DE7901AE189243D1D4A54F5 /* Pods-Screenotate.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,15 +260,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 074036271B3F71090098A404 /* Build configuration list for PBXNativeTarget "Screenotate" */;
 			buildPhases = (
-				913C6241D192E16B9668BCEB /* Check Pods Manifest.lock */,
 				074036091B3F71090098A404 /* Sources */,
 				0740360A1B3F71090098A404 /* Frameworks */,
 				0740360B1B3F71090098A404 /* Resources */,
-				3876BE6C96971F0024D1DC8B /* Copy Pods Resources */,
+				07C8F4CC1B4769EB00922F85 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				07C8F4BD1B47695400922F85 /* PBXTargetDependency */,
+				07C8F4BB1B47695100922F85 /* PBXTargetDependency */,
+				07C8F4C71B4769EB00922F85 /* PBXTargetDependency */,
+				07C8F4CB1B4769EB00922F85 /* PBXTargetDependency */,
 			);
 			name = Screenotate;
 			productName = Screenotate;
@@ -195,7 +302,7 @@
 		074036051B3F71090098A404 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Omar Rizwan";
 				TargetAttributes = {
 					0740360C1B3F71090098A404 = {
@@ -218,6 +325,16 @@
 			mainGroup = 074036041B3F71090098A404;
 			productRefGroup = 0740360E1B3F71090098A404 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 07C8F4A61B47693600922F85 /* Products */;
+					ProjectRef = 07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */;
+				},
+				{
+					ProductGroup = 07C8F4A31B47693600922F85 /* Products */;
+					ProjectRef = 07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0740360C1B3F71090098A404 /* Screenotate */,
@@ -226,11 +343,57 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		07C8F4AC1B47693600922F85 /* MASShortcut.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MASShortcut.framework;
+			remoteRef = 07C8F4AB1B47693600922F85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07C8F4AE1B47693600922F85 /* MASShortcutTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MASShortcutTests.xctest;
+			remoteRef = 07C8F4AD1B47693600922F85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07C8F4B01B47693600922F85 /* Demo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Demo.app;
+			remoteRef = 07C8F4AF1B47693600922F85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07C8F4B51B47693600922F85 /* OAuth2.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuth2.framework;
+			remoteRef = 07C8F4B41B47693600922F85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07C8F4B71B47693600922F85 /* OAuth2.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuth2.framework;
+			remoteRef = 07C8F4B61B47693600922F85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07C8F4B91B47693600922F85 /* OAuth2Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OAuth2Tests.xctest;
+			remoteRef = 07C8F4B81B47693600922F85 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		0740360B1B3F71090098A404 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A8CD381B466BE900D22D41 /* Keys.plist in Resources */,
 				074036151B3F71090098A404 /* Images.xcassets in Resources */,
 				074036181B3F71090098A404 /* MainMenu.xib in Resources */,
 			);
@@ -244,39 +407,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3876BE6C96971F0024D1DC8B /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Screenotate/Pods-Screenotate-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		913C6241D192E16B9668BCEB /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		074036091B3F71090098A404 /* Sources */ = {
@@ -307,6 +437,26 @@
 			isa = PBXTargetDependency;
 			target = 0740360C1B3F71090098A404 /* Screenotate */;
 			targetProxy = 0740361E1B3F71090098A404 /* PBXContainerItemProxy */;
+		};
+		07C8F4BB1B47695100922F85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MASShortcut;
+			targetProxy = 07C8F4BA1B47695100922F85 /* PBXContainerItemProxy */;
+		};
+		07C8F4BD1B47695400922F85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAuth2;
+			targetProxy = 07C8F4BC1B47695400922F85 /* PBXContainerItemProxy */;
+		};
+		07C8F4C71B4769EB00922F85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAuth2;
+			targetProxy = 07C8F4C61B4769EB00922F85 /* PBXContainerItemProxy */;
+		};
+		07C8F4CB1B4769EB00922F85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MASShortcut;
+			targetProxy = 07C8F4CA1B4769EB00922F85 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -401,29 +551,41 @@
 		};
 		074036281B3F71090098A404 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40EA8DDBD5912C4365F13E17 /* Pods-Screenotate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_ROOT)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/MASShortcut/Framework",
+				);
 				INFOPLIST_FILE = Screenotate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Screenotate/Bridging-Header.h";
-				USER_HEADER_SEARCH_PATHS = "Pods/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		074036291B3F71090098A404 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6DE7901AE189243D1D4A54F5 /* Pods-Screenotate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_ROOT)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/MASShortcut/Framework",
+				);
 				INFOPLIST_FILE = Screenotate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Screenotate/Bridging-Header.h";
-				USER_HEADER_SEARCH_PATHS = "Pods/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

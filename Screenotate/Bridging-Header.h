@@ -10,8 +10,8 @@
 #define Screenotate_Bridging_Header_h
 
 #import <Cocoa/Cocoa.h>
-#import <MASShortcut/MASShortcut.h>
-#import <MASShortcut/MASShortcutMonitor.h>
+#import <MASShortcut.h>
+#import <MASShortcutMonitor.h>
 #import "UIElementUtilities.h"
 
 #endif

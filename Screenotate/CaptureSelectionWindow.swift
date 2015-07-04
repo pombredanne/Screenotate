@@ -75,7 +75,7 @@ class CaptureSelectionWindow: NSWindow {
 
     override func display() {
         NSCursor.crosshairCursor().set()
-        let contentView = self.contentView as NSView
+        let contentView = self.contentView as! NSView
         contentView.addTrackingArea(trackingArea)
         super.display()
     }
@@ -95,7 +95,7 @@ class CaptureSelectionWindow: NSWindow {
         viewRect = NSMakeRect(originPoint.x, originPoint.y, 0, 0)
         selectionView.frame = viewRect
         
-        let contentView = self.contentView as NSView
+        let contentView = self.contentView as! NSView
         contentView.addSubview(selectionView)
         
         NSCursor.crosshairCursor().set()

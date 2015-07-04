@@ -18,7 +18,7 @@ func applicationUIElement(element: AXUIElement) -> AXUIElement? {
     }
     
     var parentElement: AXUIElement = element
-    while let parentElementN = UIElementUtilities.valueOfAttribute("AXParent", ofUIElement: parentElement) as AXUIElement? {
+    while let parentElementN = UIElementUtilities.valueOfAttribute("AXParent", ofUIElement: parentElement) as! AXUIElement? {
         
         parentElement = parentElementN
     }
@@ -41,7 +41,7 @@ func windowUIElement(element: AXUIElement) -> AXUIElement? {
     
     // TODO do we need the loop?
     var windowElement: AXUIElement = element
-    while let windowElementN = UIElementUtilities.valueOfAttribute("AXWindow", ofUIElement: windowElement) as AXUIElement? {
+    while let windowElementN = UIElementUtilities.valueOfAttribute("AXWindow", ofUIElement: windowElement) as! AXUIElement? {
 
         windowElement = windowElementN
     }
@@ -54,5 +54,5 @@ func windowUIElement(element: AXUIElement) -> AXUIElement? {
 }
 
 func htmlEncode(string: String) -> String {
-    return CFXMLCreateStringByEscapingEntities(nil, string, nil)
+    return CFXMLCreateStringByEscapingEntities(nil, string, nil)! as String
 }
