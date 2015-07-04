@@ -18,6 +18,7 @@
                 <outlet property="linkButton" destination="7wx-ov-8Hj" id="gTO-de-oSz"/>
                 <outlet property="preferencesWindow" destination="QvC-M9-y7g" id="Ugk-EJ-zzb"/>
                 <outlet property="statusMenu" destination="ZQM-3h-5aS" id="eue-O6-bHT"/>
+                <outlet property="uploadToDropboxRadio" destination="qL1-8g-riE" id="AXk-7G-UsK"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

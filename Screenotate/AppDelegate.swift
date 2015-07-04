@@ -19,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var keyShortcut: MASShortcutView!
 
     @IBOutlet weak var linkButton: NSButton!
+    @IBOutlet weak var uploadToDropboxRadio: NSButton!
     
     var statusBar: NSStatusItem!
 
@@ -43,6 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         MASShortcutMonitor.sharedMonitor().registerShortcut(shortcut, withAction: self.handler)
 
         dropboxLoader = DropboxLoader()
+        updateLinkUI()
 
         NSAppleEventManager.sharedAppleEventManager().setEventHandler(
             self,
@@ -67,11 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func linkToDropbox(sender: AnyObject) {
         if !dropboxLoader.linked {
             dropboxLoader.linkToDropbox({ wasFailure, error in
-                self.updateLinkButton()
+                self.updateLinkUI()
             })
         } else {
             dropboxLoader.unlinkFromDropbox({
-                self.updateLinkButton()
+                self.updateLinkUI()
             })
         }
     }
@@ -86,11 +88,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func updateLinkButton() {
+    func updateLinkUI() {
         if dropboxLoader.linked {
-            self.linkButton.title = "Unlink from Dropbox"
+            linkButton.title = "Unlink from Dropbox"
+            uploadToDropboxRadio.enabled = true
+
         } else {
-            self.linkButton.title = "Link to Dropbox..."
+            linkButton.title = "Link to Dropbox..."
+            uploadToDropboxRadio.enabled = false
         }
     }
 

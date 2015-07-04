@@ -32,6 +32,8 @@ class DropboxLoader {
 
         oauth2 = OAuth2ImplicitGrant(settings: settings)
         oauth2.viewTitle = "Screenotate"
+
+        self.linked = oauth2.hasUnexpiredAccessToken()
     }
 
     func linkToDropbox(callback: (wasFailure: Bool, error: NSError?) -> Void) {
@@ -79,5 +81,7 @@ class DropboxLoader {
     
     func unlinkFromDropbox(callback: Void -> Void) {
         oauth2.forgetTokens()
+        self.linked = false
+        callback()
     }
 }
