@@ -16,15 +16,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var preferencesWindow: NSWindow!
 
-    @IBOutlet weak var keyShortcut: MASShortcutView!
+    @IBOutlet weak var shortcutView: MASShortcutView!
 
     @IBOutlet weak var linkButton: NSButton!
     @IBOutlet weak var uploadToDropboxRadio: NSButton!
     
     var statusBar: NSStatusItem!
 
-    let keyCode = UInt(kVK_ANSI_5)
-    let keyMask: NSEventModifierFlags = .CommandKeyMask | .ShiftKeyMask
+    let kKeyShortcut = "KeyShortcut"
+    let kScreenshotDestination = "ScreenshotDestination"
 
     var controller: CaptureSelectionController?
 
@@ -40,8 +40,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        let shortcut = MASShortcut(keyCode: keyCode, modifierFlags: keyMask.rawValue)
-        MASShortcutMonitor.sharedMonitor().registerShortcut(shortcut, withAction: self.handler)
+        let binder = MASShortcutBinder.sharedBinder()
+        shortcutView.associatedUserDefaultsKey = kKeyShortcut
+
+        let defaultShortcut = MASShortcut(
+            keyCode: UInt(kVK_ANSI_5),
+            modifierFlags: (NSEventModifierFlags.CommandKeyMask | NSEventModifierFlags.ShiftKeyMask).rawValue
+        )
+        binder.registerDefaultShortcuts([kKeyShortcut: defaultShortcut])
+        binder.bindShortcutWithDefaultsKey(kKeyShortcut, toAction: self.handler)
 
         dropboxLoader = DropboxLoader()
         updateLinkUI()

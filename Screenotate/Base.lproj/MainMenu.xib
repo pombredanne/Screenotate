@@ -14,9 +14,9 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Screenotate" customModuleProvider="target">
             <connections>
-                <outlet property="keyShortcut" destination="rmA-jM-yVX" id="37O-4q-8F4"/>
                 <outlet property="linkButton" destination="7wx-ov-8Hj" id="gTO-de-oSz"/>
                 <outlet property="preferencesWindow" destination="QvC-M9-y7g" id="Ugk-EJ-zzb"/>
+                <outlet property="shortcutView" destination="rmA-jM-yVX" id="JpN-wB-1QT"/>
                 <outlet property="statusMenu" destination="ZQM-3h-5aS" id="eue-O6-bHT"/>
                 <outlet property="uploadToDropboxRadio" destination="qL1-8g-riE" id="AXk-7G-UsK"/>
             </connections>
