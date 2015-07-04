@@ -7,25 +7,27 @@
 //
 
 import Cocoa
-import Carbon
 
-import OAuth2
+import MASShortcut
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var preferencesWindow: NSWindow!
+
+    @IBOutlet weak var keyShortcut: MASShortcutView!
+
+    @IBOutlet weak var linkButton: NSButton!
     
     var statusBar: NSStatusItem!
 
     let keyCode = UInt(kVK_ANSI_5)
     let keyMask: NSEventModifierFlags = .CommandKeyMask | .ShiftKeyMask
 
-    var settings: OAuth2JSON!
-    var oauth2: OAuth2ImplicitGrant!
-
     var controller: CaptureSelectionController?
+
+    var dropboxLoader: DropboxLoader!
 
     override func awakeFromNib() {
         // NSVariableStatusItemLength isn't a symbol in 10.9 for some reason???
@@ -40,18 +42,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let shortcut = MASShortcut(keyCode: keyCode, modifierFlags: keyMask.rawValue)
         MASShortcutMonitor.sharedMonitor().registerShortcut(shortcut, withAction: self.handler)
 
-        let keys = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Keys", ofType: "plist")!)!
-        let appKey = keys["Dropbox API key"] as! String
+        dropboxLoader = DropboxLoader()
 
-        settings = [
-            "client_id": appKey,
-            "authorize_uri": "https://www.dropbox.com/1/oauth2/authorize",
-            "token_uri": "https://api.dropbox.com/1/oauth2/token",
-            "redirect_uris": ["db-" + appKey + "://oauth/callback"]
-        ] as OAuth2JSON
-
-        oauth2 = OAuth2ImplicitGrant(settings: settings)
-        oauth2.viewTitle = "Screenotate"
+        NSAppleEventManager.sharedAppleEventManager().setEventHandler(
+            self,
+            andSelector: "handleURLEvent:withReply:",
+            forEventClass: AEEventClass(kInternetEventClass),
+            andEventID: AEEventID(kAEGetURL)
+        )
     }
     
     func handler() {
@@ -67,11 +65,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func linkToDropbox(sender: AnyObject) {
-        oauth2.authorize()
+        if !dropboxLoader.linked {
+            dropboxLoader.linkToDropbox({ wasFailure, error in
+                self.updateLinkButton()
+            })
+        } else {
+            dropboxLoader.unlinkFromDropbox({
+                self.updateLinkButton()
+            })
+        }
     }
 
-    func authHelperStateChangedNotification(notification: NSNotification) {
-//        println(DBSession.sharedSession().isLinked())
+    func handleURLEvent(event: NSAppleEventDescriptor, withReply reply: NSAppleEventDescriptor) {
+        if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue {
+            if let url = NSURL(string: urlString) {
+                dropboxLoader.handleURL(url)
+            }
+        } else {
+            NSLog("No valid URL to handle")
+        }
+    }
+
+    func updateLinkButton() {
+        if dropboxLoader.linked {
+            self.linkButton.title = "Unlink from Dropbox"
+        } else {
+            self.linkButton.title = "Link to Dropbox..."
+        }
     }
 
     @IBAction func quitScreenotate(sender: AnyObject) {

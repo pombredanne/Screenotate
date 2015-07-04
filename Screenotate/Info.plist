@@ -30,7 +30,22 @@
 	<string>Copyright © 2015 Omar Rizwan. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>DropboxAppKey</key>
+	<string>DROPBOX_APP_KEY</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-DROPBOX_APP_KEY</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>db-DROPBOX_APP_KEY</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1077" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="13F1077" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -14,6 +14,8 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Screenotate" customModuleProvider="target">
             <connections>
+                <outlet property="keyShortcut" destination="rmA-jM-yVX" id="37O-4q-8F4"/>
+                <outlet property="linkButton" destination="7wx-ov-8Hj" id="gTO-de-oSz"/>
                 <outlet property="preferencesWindow" destination="QvC-M9-y7g" id="Ugk-EJ-zzb"/>
                 <outlet property="statusMenu" destination="ZQM-3h-5aS" id="eue-O6-bHT"/>
             </connections>
@@ -29,7 +31,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rmA-jM-yVX" customClass="MASShortcutView">
-                        <rect key="frame" x="175" y="121" width="163" height="19"/>
+                        <rect key="frame" x="175" y="121" width="174" height="19"/>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4Y-TX-KYf">
                         <rect key="frame" x="45" y="123" width="124" height="17"/>
@@ -62,14 +64,14 @@
                         </buttonCell>
                     </button>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbJ-kC-FdK">
-                        <rect key="frame" x="183" y="71" width="148" height="26"/>
+                        <rect key="frame" x="183" y="71" width="169" height="26"/>
                         <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="zGs-eB-65L">
                             <font key="font" metaFont="system"/>
                             <url key="url" string="file:///"/>
                         </pathCell>
                     </pathControl>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wx-ov-8Hj">
-                        <rect key="frame" x="188" y="13" width="156" height="32"/>
+                        <rect key="frame" x="188" y="13" width="167" height="32"/>
                         <buttonCell key="cell" type="push" title="Link to Dropbox..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L5s-3L-pLo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
