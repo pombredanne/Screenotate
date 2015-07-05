@@ -14,6 +14,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     
     let systemWideElement = AXUIElementCreateSystemWide().takeRetainedValue()
 
+    let loader = DropboxLoader.sharedInstance
+
     func preCapture() {
         let screens = NSScreen.screens() as! [NSScreen]
 
@@ -151,11 +153,40 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         if destination == kScreenshotDestinationFolder {
             let url = defaults.URLForKey(kSaveFolder)!
-            let path = url.path!.stringByAppendingPathComponent(filename)
-            html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+            saveToFolder(url, filename: filename, html: html)
 
         } else if destination == kScreenshotDestinationDropbox {
-            
+            loader.upload(filename, data: html.dataUsingEncoding(NSUTF8StringEncoding)!, callback: { dict, error in
+                if error != nil {
+                    // fall back on offline save
+                    let url = defaults.URLForKey(kOfflineDropboxSaveFolder)!
+                    self.saveToFolder(url, filename: filename, html: html)
+
+                } else {
+                    // copy Dropbox share URL to clipboard
+                    self.copyShareURL(filename)
+                }
+            })
+
+            // clear clipboard
+            NSPasteboard.generalPasteboard().clearContents()
         }
+    }
+
+    func saveToFolder(url: NSURL, filename: String, html: String) {
+        let path = url.path!.stringByAppendingPathComponent(filename)
+        html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+    }
+
+    func copyShareURL(filename: String) {
+        loader.shares(filename, callback: { dict, error in
+            if error != nil {
+                // TODO report an error
+            } else {
+                // copy shared link to clipboard
+                NSPasteboard.generalPasteboard().clearContents()
+                NSPasteboard.generalPasteboard().setString(dict!["url"] as! String, forType: NSPasteboardTypeString)
+            }
+        })
     }
 }

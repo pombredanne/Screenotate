@@ -41,7 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // save to folder or to Dropbox? which one?
     @IBOutlet weak var saveScreenshotsToFolderRadio: NSButton!
     @IBOutlet weak var uploadToDropboxRadio: NSButton!
-    
+
+    lazy var defaults = NSUserDefaults.standardUserDefaults()
+
     var statusBar: NSStatusItem!
 
     var controller: CaptureSelectionController?
@@ -77,7 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             andEventID: AEEventID(kAEGetURL)
         )
 
-        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!) // TOREMOVE
         let desktopPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
         defaults.registerDefaults([
@@ -150,7 +151,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         pathControl.URL = url
-        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setURL(url, forKey: kSaveFolder)
     }
 
@@ -162,21 +162,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         offlineDropboxPathControl.URL = url
-        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setURL(url, forKey: kOfflineDropboxSaveFolder)
     }
 
     @IBAction func selectSaveScreenshotsToFolder(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setValue(kScreenshotDestinationFolder, forKey: kScreenshotDestination)
+        defaults.setObject(kScreenshotDestinationFolder, forKey: kScreenshotDestination)
         updateDestinationUI()
     }
     @IBAction func selectUploadToDropbox(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setValue(kScreenshotDestinationDropbox, forKey: kScreenshotDestination)
+        defaults.setObject(kScreenshotDestinationDropbox, forKey: kScreenshotDestination)
         updateDestinationUI()
     }
 
     func updateDestinationUI() {
-        let defaults = NSUserDefaults.standardUserDefaults()
         let destination = defaults.stringForKey(kScreenshotDestination)
         if destination == kScreenshotDestinationFolder {
             saveScreenshotsToFolderRadio.state = NSOnState

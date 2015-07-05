@@ -61,6 +61,31 @@ class DropboxLoader {
         let url = baseURL.URLByAppendingPathComponent(path)
         let req = oauth2.request(forURL: url)
 
+        sendRequest(req, callback: callback)
+    }
+
+    func upload(path: String, data: NSData, callback: ((dict: NSDictionary?, error: NSError?) -> Void)) {
+        let uploadBaseURL = NSURL(string: "https://api-content.dropbox.com/1/files_put/auto/")!
+        let url = uploadBaseURL.URLByAppendingPathComponent(path)
+
+        let req = oauth2.request(forURL: url)
+        req.HTTPMethod = "PUT"
+        req.HTTPBody = data
+
+        sendRequest(req, callback: callback)
+    }
+
+    func shares(path: String, callback: ((dict: NSDictionary?, error: NSError?) -> Void)) {
+        let url = baseURL.URLByAppendingPathComponent("shares/auto/").URLByAppendingPathComponent(path)
+
+        let req = oauth2.request(forURL: url)
+        req.HTTPMethod = "POST"
+        req.HTTPBody = "short_url=false".dataUsingEncoding(NSUTF8StringEncoding)
+
+        sendRequest(req, callback: callback)
+    }
+
+    func sendRequest(req: OAuth2Request, callback: ((dict: NSDictionary?, error: NSError?) -> Void)) {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(req) { data, response, error in
             if nil != error {
@@ -78,7 +103,7 @@ class DropboxLoader {
         }
         task.resume()
     }
-    
+
     func unauthFromDropbox(callback: Void -> Void) {
         oauth2.forgetTokens()
         callback()
