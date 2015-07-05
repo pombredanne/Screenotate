@@ -10,25 +10,43 @@ import Cocoa
 
 import MASShortcut
 
+let kKeyShortcut = "KeyShortcut"
+let kScreenshotDestination = "ScreenshotDestination" // folder or Dropbox?
+let kSaveFolder = "SaveFolder" // if folder, then what folder exactly?
+let kOfflineDropboxSaveFolder = "OfflineDropboxSaveFolder" // if Dropbox, then where do we save if offline?
+
+let kScreenshotDestinationFolder = "Folder"
+let kScreenshotDestinationDropbox = "Dropbox"
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var preferencesWindow: NSWindow!
 
+    // Global keyboard shortcut
     @IBOutlet weak var shortcutView: MASShortcutView!
 
-    @IBOutlet weak var linkButton: NSButton!
+    // Folder save options
+    @IBOutlet weak var pathControl: NSPathControl!
+
+    // 'connect to Dropbox'
+    @IBOutlet weak var authButton: NSButton!
+
+    // Dropbox-link save options
+    @IBOutlet weak var ifOfflineLabel: NSTextField!
+    @IBOutlet weak var offlineDropboxPathControl: NSPathControl!
+    @IBOutlet weak var appFolderLabel: NSTextField!
+
+    // save to folder or to Dropbox? which one?
+    @IBOutlet weak var saveScreenshotsToFolderRadio: NSButton!
     @IBOutlet weak var uploadToDropboxRadio: NSButton!
     
     var statusBar: NSStatusItem!
 
-    let kKeyShortcut = "KeyShortcut"
-    let kScreenshotDestination = "ScreenshotDestination"
-
     var controller: CaptureSelectionController?
 
-    var dropboxLoader: DropboxLoader!
+    let dropboxLoader = DropboxLoader.sharedInstance
 
     override func awakeFromNib() {
         // NSVariableStatusItemLength isn't a symbol in 10.9 for some reason???
@@ -50,8 +68,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         binder.registerDefaultShortcuts([kKeyShortcut: defaultShortcut])
         binder.bindShortcutWithDefaultsKey(kKeyShortcut, toAction: self.handler)
 
-        dropboxLoader = DropboxLoader()
-        updateLinkUI()
+        updateAuthUI()
 
         NSAppleEventManager.sharedAppleEventManager().setEventHandler(
             self,
@@ -59,6 +76,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             forEventClass: AEEventClass(kInternetEventClass),
             andEventID: AEEventID(kAEGetURL)
         )
+
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!) // TOREMOVE
+        let desktopPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        defaults.registerDefaults([
+            kScreenshotDestination: kScreenshotDestinationFolder,
+            kSaveFolder: desktopPath,
+            kOfflineDropboxSaveFolder: "~/Dropbox/Apps/Screenotate"
+            ])
+        pathControl.URL = defaults.URLForKey(kSaveFolder)!
+        offlineDropboxPathControl.URL = defaults.URLForKey(kOfflineDropboxSaveFolder)!
+
+        updateDestinationUI()
     }
     
     func handler() {
@@ -73,14 +103,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activateIgnoringOtherApps(true)
     }
 
-    @IBAction func linkToDropbox(sender: AnyObject) {
-        if !dropboxLoader.linked {
-            dropboxLoader.linkToDropbox({ wasFailure, error in
-                self.updateLinkUI()
+    @IBAction func authToDropbox(sender: AnyObject) {
+        if !dropboxLoader.authed {
+            dropboxLoader.authToDropbox({ wasFailure, error in
+                self.updateAuthUI()
             })
         } else {
-            dropboxLoader.unlinkFromDropbox({
-                self.updateLinkUI()
+            dropboxLoader.unauthFromDropbox({
+                self.selectSaveScreenshotsToFolder(self) // force to save to folder now
+                self.updateAuthUI()
             })
         }
     }
@@ -95,14 +126,65 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func updateLinkUI() {
-        if dropboxLoader.linked {
-            linkButton.title = "Unlink from Dropbox"
+    func updateAuthUI() {
+        if dropboxLoader.authed {
+            authButton.title = "Disconnect Dropbox"
             uploadToDropboxRadio.enabled = true
+            offlineDropboxPathControl.enabled = true
+            ifOfflineLabel.textColor = NSColor.controlTextColor()
+            appFolderLabel.textColor = NSColor.controlTextColor()
 
         } else {
-            linkButton.title = "Link to Dropbox..."
+            authButton.title = "Connect to Dropbox..."
             uploadToDropboxRadio.enabled = false
+            offlineDropboxPathControl.enabled = false
+            ifOfflineLabel.textColor = NSColor.disabledControlTextColor()
+            appFolderLabel.textColor = NSColor.disabledControlTextColor()
+        }
+    }
+
+    @IBAction func selectSaveFolder(sender: AnyObject) {
+        var url = pathControl.URL!
+        if let urlN = pathControl.clickedPathComponentCell()?.URL! {
+            url = urlN
+        }
+
+        pathControl.URL = url
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setURL(url, forKey: kSaveFolder)
+    }
+
+    @IBAction func selectOfflineDropboxSaveFolder(sender: AnyObject) {
+        // TODO remove this bit of code duplication
+        var url = offlineDropboxPathControl.URL!
+        if let urlN = offlineDropboxPathControl.clickedPathComponentCell()?.URL! {
+            url = urlN
+        }
+
+        offlineDropboxPathControl.URL = url
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setURL(url, forKey: kOfflineDropboxSaveFolder)
+    }
+
+    @IBAction func selectSaveScreenshotsToFolder(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setValue(kScreenshotDestinationFolder, forKey: kScreenshotDestination)
+        updateDestinationUI()
+    }
+    @IBAction func selectUploadToDropbox(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setValue(kScreenshotDestinationDropbox, forKey: kScreenshotDestination)
+        updateDestinationUI()
+    }
+
+    func updateDestinationUI() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let destination = defaults.stringForKey(kScreenshotDestination)
+        if destination == kScreenshotDestinationFolder {
+            saveScreenshotsToFolderRadio.state = NSOnState
+            uploadToDropboxRadio.state = NSOffState
+
+        } else if destination == kScreenshotDestinationDropbox {
+            saveScreenshotsToFolderRadio.state = NSOffState
+            uploadToDropboxRadio.state = NSOnState
         }
     }
 
