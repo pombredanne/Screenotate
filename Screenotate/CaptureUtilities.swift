@@ -53,6 +53,30 @@ func windowUIElement(element: AXUIElement) -> AXUIElement? {
     return nil
 }
 
+func childrenOfUIElement(element: AXUIElement) -> [AXUIElement] {
+    return UIElementUtilities.valueOfAttribute(kAXChildrenAttribute, ofUIElement: element) as! [AXUIElement]
+}
+
+func findChildOfUIElement(element: AXUIElement, test: AXUIElement -> Bool, index: Int) -> AXUIElement? {
+    var numSeen = 0
+    for child in childrenOfUIElement(element) {
+        if test(child) {
+            if numSeen++ >= index {
+                return child
+            }
+        }
+    }
+    return nil
+}
+
+func findChildOfUIElement(element: AXUIElement, test: AXUIElement -> Bool) -> AXUIElement? {
+    return findChildOfUIElement(element, test, 0)
+}
+
+
+func testStringAttribute(element: AXUIElement, attribute: String, expectedValue: String) -> Bool {
+    return UIElementUtilities.valueOfAttribute(attribute, ofUIElement: element) as! String == expectedValue
+}
 func htmlEncode(string: String) -> String {
     return CFXMLCreateStringByEscapingEntities(nil, string, nil)! as String
 }

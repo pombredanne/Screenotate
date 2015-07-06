@@ -78,9 +78,9 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         
         usleep(30000)
 
-        let origin = window.selectionRect.origin
+        let origin = window.originPoint
 
-        var uelement: Unmanaged<AXUIElement>? = nil
+        var uelement: Unmanaged<AXUIElement>?
         var err = AXUIElementCopyElementAtPosition(systemWideElement, Float(origin.x), Float(origin.y), &uelement)
         if (Int(err) != Int(kAXErrorSuccess) || uelement == nil) {
             return
@@ -95,6 +95,64 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         
         let originApplication = applicationUIElement(element)
         let applicationTitle = UIElementUtilities.titleOfUIElement(originApplication)
+
+        var originUrl: String?
+
+        if originApplication != nil {
+            var oldEnhancedUserInterfaceValue: NSNumber?
+
+            let kAXEnhancedUserInterfaceAttribute = "AXEnhancedUserInterface"
+
+            // remember whether accessibility was on before
+
+            oldEnhancedUserInterfaceValue = UIElementUtilities.valueOfAttribute(kAXEnhancedUserInterfaceAttribute, ofUIElement: originApplication) as? NSNumber
+
+            // either way, get the app to turn on accessibility so we can scrape it
+            AXUIElementSetAttributeValue(originApplication, kAXEnhancedUserInterfaceAttribute, 1)
+
+            // now scrape what data we can
+            // hack alert
+            if originWindow != nil {
+                if applicationTitle.rangeOfString("Firefox") != nil {
+                    let group = childrenOfUIElement(originWindow!)[0]
+                    let navigationToolbar = findChildOfUIElement(group, {
+                        testStringAttribute($0, kAXTitleAttribute, "Navigation Toolbar")
+                    })
+                    let addressBar = findChildOfUIElement(navigationToolbar!, {
+                        testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
+                    })
+
+                    let originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as! String
+                    println(originUrl)
+
+                } else if applicationTitle.rangeOfString("Chrome") != nil {
+                    let toolbar = childrenOfUIElement(originWindow!)[0]
+                    let addressBar = findChildOfUIElement(toolbar, {
+                        testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
+                    })
+
+                    let originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as! String
+                    println(originUrl)
+
+                } else if applicationTitle.rangeOfString("Safari") != nil {
+                    let toolbar = findChildOfUIElement(originWindow!, {
+                        testStringAttribute($0, kAXRoleAttribute, kAXToolbarRole)
+                    })
+                    let group1 = findChildOfUIElement(toolbar!, {
+                        testStringAttribute($0, kAXRoleAttribute, kAXGroupRole)
+                    }, 1)
+                    let addressBar = findChildOfUIElement(group1!, {
+                        testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
+                    })
+
+                    let originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as! String
+                    println(originUrl)
+                }
+            }
+
+            // now go back to the accessibility state before we started messin' around
+            AXUIElementSetAttributeValue(originApplication, kAXEnhancedUserInterfaceAttribute, oldEnhancedUserInterfaceValue)
+        }
 
         let mainID = window.displayID
         let mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained

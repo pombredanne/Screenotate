@@ -93,6 +93,7 @@ extern NSString *const UIElementUtilitiesNoDescription;
 #pragma mark -
 #pragma mark String Descriptions
 /* Methods to return the various strings displayed in the interface */
++ (NSString *)descriptionOfValue:(CFTypeRef)theValue beingVerbose:(BOOL)beVerbose;
 + (NSString *)stringDescriptionOfUIElement:(AXUIElementRef)inElement; // Note this is NOT nec. the AXDescription of the UIElement
 + (NSString *)descriptionForUIElement:(AXUIElementRef)uiElement attribute:(NSString *)name beingVerbose:(BOOL)beVerbose;
 
