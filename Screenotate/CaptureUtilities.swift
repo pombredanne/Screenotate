@@ -77,6 +77,20 @@ func findChildOfUIElement(element: AXUIElement, test: AXUIElement -> Bool) -> AX
 func testStringAttribute(element: AXUIElement, attribute: String, expectedValue: String) -> Bool {
     return UIElementUtilities.valueOfAttribute(attribute, ofUIElement: element) as! String == expectedValue
 }
-func htmlEncode(string: String) -> String {
+
+// kind of a meh regex but should work well enough, and the [uncommon] failure case isn't that bad
+// (url becomes relative and breaks for clicking)
+let hasProtocolRegex = NSRegularExpression(pattern: "://", options: .allZeros, error: nil)!
+func toHref(url: String) -> String {
+    // some URLs scraped from address bar are like "example.com/foo" since browsers like to be hip
+    // if so, just automatically prefix w/ http://
+    if (hasProtocolRegex.numberOfMatchesInString(url, options: .allZeros, range: NSMakeRange(0, count(url))) > 0) {
+        return url
+    }
+
+    return "http://" + url
+}
+
+func htmlEncodeSafe(string: String) -> String {
     return CFXMLCreateStringByEscapingEntities(nil, string, nil)! as String
 }
