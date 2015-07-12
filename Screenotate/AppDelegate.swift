@@ -79,7 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             andEventID: AEEventID(kAEGetURL)
         )
 
-        defaults.removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!) // TOREMOVE
         let desktopPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
         defaults.registerDefaults([
             kScreenshotDestination: kScreenshotDestinationFolder,

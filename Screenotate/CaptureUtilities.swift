@@ -53,16 +53,22 @@ func windowUIElement(element: AXUIElement) -> AXUIElement? {
     return nil
 }
 
-func childrenOfUIElement(element: AXUIElement) -> [AXUIElement] {
-    return UIElementUtilities.valueOfAttribute(kAXChildrenAttribute, ofUIElement: element) as! [AXUIElement]
+func childrenOfUIElement(element: AXUIElement) -> [AXUIElement]? {
+    if let children = UIElementUtilities.valueOfAttribute(kAXChildrenAttribute, ofUIElement: element) as? [AXUIElement] {
+        return children
+    } else {
+        return nil
+    }
 }
 
 func findChildOfUIElement(element: AXUIElement, test: AXUIElement -> Bool, index: Int) -> AXUIElement? {
     var numSeen = 0
-    for child in childrenOfUIElement(element) {
-        if test(child) {
-            if numSeen++ >= index {
-                return child
+    if let children = childrenOfUIElement(element) {
+        for child in children {
+            if test(child) {
+                if numSeen++ >= index {
+                    return child
+                }
             }
         }
     }

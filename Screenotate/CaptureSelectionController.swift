@@ -114,8 +114,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
             // hack alert
             if let parent = originWindow {
                 if applicationTitle.rangeOfString("Firefox") != nil {
-                    let group = childrenOfUIElement(parent)[0]
                     if let
+                        group = childrenOfUIElement(parent)?[0],
                         navigationToolbar = findChildOfUIElement(group, {
                             testStringAttribute($0, kAXTitleAttribute, "Navigation Toolbar")
                         }),
@@ -127,10 +127,12 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     }
 
                 } else if applicationTitle.rangeOfString("Chrome") != nil {
-                    let toolbar = childrenOfUIElement(parent)[0]
-                    if let addressBar = findChildOfUIElement(toolbar, {
-                        testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
-                    }) {
+                    if let
+                        toolbar = childrenOfUIElement(parent)?[0],
+                        addressBar = findChildOfUIElement(toolbar, {
+                            testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
+                        })
+                    {
                         originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as? String
                     }
 
@@ -182,7 +184,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         let windowTitleSafe = windowTitle != nil ? htmlEncodeSafe(windowTitle) : "[untitled]"
 
         let heightSafe = window.selectionRect.height
-        
+
         let html = "\n".join([
             "<html>",
                 "<head>",
