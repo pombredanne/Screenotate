@@ -67,6 +67,37 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         NSApp.hide(self)
     }
 
+    func windowUnderPoint(point: NSPoint) -> (name: String?, ownerName: String?)? {
+        let infoRef = CGWindowListCopyWindowInfo(CGWindowListOption(kCGWindowListOptionOnScreenOnly), CGWindowID(0))
+        let info = infoRef.takeRetainedValue() as! Array<NSDictionary>
+
+        var windowUnderPoint: (name: String?, ownerName: String?)?
+
+        for windowInfo in info {
+            let windowBounds = windowInfo["kCGWindowBounds"] as! CFDictionary
+            var windowRect = CGRect()
+            CGRectMakeWithDictionaryRepresentation(windowBounds, &windowRect)
+
+            let windowLayer = windowInfo["kCGWindowLayer"] as! Int
+            let windowOwnerName = windowInfo["kCGWindowOwnerName"] as! String?
+
+            if windowOwnerName == "Dock" { // FIXME kind of a hack
+                continue
+            }
+
+            if windowRect.contains(point) {
+                // info is ordered front to back so just return first thing we get
+                windowUnderPoint = (
+                    name: windowInfo["kCGWindowName"] as! String?,
+                    ownerName: windowOwnerName
+                )
+                break
+            }
+        }
+
+        return windowUnderPoint
+    }
+
     func postCapture(window: CaptureSelectionWindow) {
         if (!window.isSelectionDone) {
             return
@@ -80,83 +111,17 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         let origin = window.originPoint
 
-        var uelement: Unmanaged<AXUIElement>?
-        var err = AXUIElementCopyElementAtPosition(systemWideElement, Float(origin.x), Float(origin.y), &uelement)
-        if (Int(err) != Int(kAXErrorSuccess) || uelement == nil) {
-            return
-        }
+        // figure out which window is under point
+        let windowUnderOrigin = windowUnderPoint(origin)
 
-        var element = uelement!.takeRetainedValue()
+        println(windowUnderOrigin)
+        let windowTitle = windowUnderOrigin?.name
+        let applicationTitle = windowUnderOrigin?.ownerName
 
-        let title = UIElementUtilities.titleOfUIElement(element)
-
-        let originWindow = windowUIElement(element)
-        let windowTitle = UIElementUtilities.titleOfUIElement(originWindow)
-        
-        let originApplication = applicationUIElement(element)
-        let applicationTitle = UIElementUtilities.titleOfUIElement(originApplication)
-
+        // if it's a browser window, we maybe can also get the URL
         var originUrl: String?
 
-        if originApplication != nil {
-            var oldEnhancedUserInterfaceValue: NSNumber?
-
-            let kAXEnhancedUserInterfaceAttribute = "AXEnhancedUserInterface"
-
-            // remember whether accessibility was on before
-
-            oldEnhancedUserInterfaceValue = UIElementUtilities.valueOfAttribute(kAXEnhancedUserInterfaceAttribute, ofUIElement: originApplication) as? NSNumber
-
-            // either way, get the app to turn on accessibility so we can scrape it
-            AXUIElementSetAttributeValue(originApplication, kAXEnhancedUserInterfaceAttribute, 1)
-
-            // now scrape what data we can
-            // hack alert
-            if let parent = originWindow {
-                if applicationTitle.rangeOfString("Firefox") != nil {
-                    if let
-                        group = childrenOfUIElement(parent)?[0],
-                        navigationToolbar = findChildOfUIElement(group, {
-                            testStringAttribute($0, kAXTitleAttribute, "Navigation Toolbar")
-                        }),
-                        addressBar = findChildOfUIElement(navigationToolbar, {
-                            testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
-                        })
-                    {
-                        originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as? String
-                    }
-
-                } else if applicationTitle.rangeOfString("Chrome") != nil {
-                    if let
-                        toolbar = childrenOfUIElement(parent)?[0],
-                        addressBar = findChildOfUIElement(toolbar, {
-                            testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
-                        })
-                    {
-                        originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as? String
-                    }
-
-                } else if applicationTitle.rangeOfString("Safari") != nil {
-                    if let
-                        toolbar = findChildOfUIElement(parent, {
-                            testStringAttribute($0, kAXRoleAttribute, kAXToolbarRole)
-                        }),
-                        group1 = findChildOfUIElement(toolbar, {
-                            testStringAttribute($0, kAXRoleAttribute, kAXGroupRole)
-                        }, 1),
-                        addressBar = findChildOfUIElement(group1, {
-                            testStringAttribute($0, kAXRoleAttribute, kAXTextFieldRole)
-                        })
-                    {
-                        originUrl = UIElementUtilities.valueOfAttribute(kAXValueAttribute, ofUIElement: addressBar) as? String
-                    }
-                }
-            }
-
-            // now go back to the accessibility state before we started messin' around
-            AXUIElementSetAttributeValue(originApplication, kAXEnhancedUserInterfaceAttribute, oldEnhancedUserInterfaceValue)
-        }
-
+        // actually take the screenshot
         let mainID = window.displayID
         let mainCGImage = CGDisplayCreateImage(mainID).takeUnretainedValue() // TODO is this retained
         // note that CGImageCreateWithImageInRect takes pixel rect, not point rect:
@@ -181,7 +146,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         let timestampSafe = timestamp // it's safe, timestamp was generated by us
 
         let filename = "Screen Shot \(timestampSafe).html"
-        let windowTitleSafe = windowTitle != nil ? htmlEncodeSafe(windowTitle) : "[untitled]"
+        let windowTitleSafe = windowTitle != nil ? htmlEncodeSafe(windowTitle!) : "[untitled]"
+        let applicationTitleSafe = applicationTitle != nil ? htmlEncodeSafe(applicationTitle!) : "Unknown"
 
         let heightSafe = window.selectionRect.height
 
@@ -204,7 +170,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                             "<dt>Window title</dt>",
                             "<dd>\(windowTitleSafe)</dd>",
                             "<dt>App title</dt>",
-                            "<dd>\(htmlEncodeSafe(applicationTitle))</dd>",
+                            "<dd>\(applicationTitleSafe)</dd>",
                         "</dl>",
                     "</div>",
                 "</body>",
