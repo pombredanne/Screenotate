@@ -12,6 +12,5 @@
 #import <Cocoa/Cocoa.h>
 #import <MASShortcut.h>
 #import <MASShortcutMonitor.h>
-#import "UIElementUtilities.h"
 
 #endif

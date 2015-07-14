@@ -98,6 +98,43 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         return windowUnderPoint
     }
 
+    func frontmostPageOfBrowser(applicationTitle: String) -> (url: String, title: String)? {
+        // Note: assumption here that screenshotted tab is frontmost
+        // in browser's frontmost window.
+        // This fits my personal screenshot flow, but it's a definite
+        // disadvantage compared to accessibility which can query any window.
+        var pageTitle, pageURL: String!
+
+        if applicationTitle.rangeOfString("Firefox") != nil {
+            // :|
+            pageURL = MozRepl.getFrontmostURL()
+
+        } else if applicationTitle.rangeOfString("Chrome") != nil || applicationTitle.rangeOfString("Chromium") != nil {
+            pageURL = executeScript("tell application \"\(applicationTitle)\" to return URL of active tab of front window")
+
+        } else if applicationTitle.rangeOfString("Safari") != nil {
+            pageURL = executeScript("tell application \"\(applicationTitle)\" to return URL of front document")
+
+        } else {
+            return nil
+        }
+
+        return (pageURL, "")
+    }
+
+    func executeScript(script: String) -> String? {
+        var error: NSDictionary?
+        if let scriptObject = NSAppleScript(source: script) {
+            if let output: NSAppleEventDescriptor = scriptObject.executeAndReturnError(&error) {
+                return output.stringValue
+            } else if (error != nil) {
+                NSLog("error on executeScript \(script):\n\(error)")
+            }
+        }
+
+        return nil
+    }
+
     func postCapture(window: CaptureSelectionWindow) {
         if (!window.isSelectionDone) {
             return
@@ -114,12 +151,11 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         // figure out which window is under point
         let windowUnderOrigin = windowUnderPoint(origin)
 
-        println(windowUnderOrigin)
         let windowTitle = windowUnderOrigin?.name
         let applicationTitle = windowUnderOrigin?.ownerName
 
         // if it's a browser window, we maybe can also get the URL
-        var originUrl: String?
+        let originPage = applicationTitle != nil ? frontmostPageOfBrowser(applicationTitle!) : nil
 
         // actually take the screenshot
         let mainID = window.displayID
@@ -135,8 +171,17 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         CGImageDestinationAddImage(mainDest, mainCroppedCGImage, nil)
         CGImageDestinationFinalize(mainDest)
-        
-        let uri = "data:image/png;base64,\(mainMutData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros))"
+
+        saveScreenshot(mainMutData, height: window.selectionRect.height,
+            windowTitle: windowTitle, applicationTitle: applicationTitle,
+            originPage: originPage)
+    }
+
+    func saveScreenshot(data: NSData, height: CGFloat,
+        windowTitle: String?, applicationTitle: String?,
+        originPage: (String, String)?) {
+
+        let uri = "data:image/png;base64,\(data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros))"
         let uriSafe = uri
 
         let date = NSDate()
@@ -149,7 +194,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         let windowTitleSafe = windowTitle != nil ? htmlEncodeSafe(windowTitle!) : "[untitled]"
         let applicationTitleSafe = applicationTitle != nil ? htmlEncodeSafe(applicationTitle!) : "Unknown"
 
-        let heightSafe = window.selectionRect.height
+        let heightSafe = height
 
         let html = "\n".join([
             "<html>",
@@ -162,8 +207,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     "</div>",
                     "<div>",
                         "<dl>",
-                            originUrl != nil ?
-                                "<dt>URL</dt><dd><a href=\"\(htmlEncodeSafe(toHref(originUrl!)))\">\(htmlEncodeSafe(originUrl!))</a></dd>" :
+                            originPage != nil ?
+                                "<dt>URL</dt><dd><a href=\"\(htmlEncodeSafe(originPage!.0))\">\(htmlEncodeSafe(originPage!.0))</a></dd>" :
                                 "",
                             "<dt>Timestamp</dt>",
                             "<dd>\(timestampSafe)</dd>",

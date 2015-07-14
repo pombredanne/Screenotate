@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		071E53D21B47CCF20078A508 /* DropboxLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E53D11B47CCF20078A508 /* DropboxLoader.swift */; };
-		073FC9DB1B407FAC00EF316D /* UIElementUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FC9DA1B407FAC00EF316D /* UIElementUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		073FC9DD1B40AAFB00EF316D /* CaptureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073FC9DC1B40AAFB00EF316D /* CaptureUtilities.swift */; };
 		074036131B3F71090098A404 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036121B3F71090098A404 /* AppDelegate.swift */; };
 		074036151B3F71090098A404 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074036141B3F71090098A404 /* Images.xcassets */; };
@@ -17,6 +16,7 @@
 		0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */; };
 		074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */; };
 		074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036311B3F84420098A404 /* CaptureSelectionController.swift */; };
+		07AC58381B5393E600B1C61E /* MozRepl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AC58371B5393E600B1C61E /* MozRepl.swift */; };
 		07C8F4C41B4769EB00922F85 /* OAuth2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4B51B47693600922F85 /* OAuth2.framework */; };
 		07C8F4C51B4769EB00922F85 /* OAuth2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4B51B47693600922F85 /* OAuth2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		07C8F4C81B4769EB00922F85 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4AC1B47693600922F85 /* MASShortcut.framework */; };
@@ -121,8 +121,6 @@
 /* Begin PBXFileReference section */
 		071E53D01B47C1020078A508 /* Keys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Keys.h; sourceTree = "<group>"; };
 		071E53D11B47CCF20078A508 /* DropboxLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxLoader.swift; sourceTree = "<group>"; };
-		073FC9D91B407FAC00EF316D /* UIElementUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElementUtilities.h; sourceTree = "<group>"; };
-		073FC9DA1B407FAC00EF316D /* UIElementUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIElementUtilities.m; sourceTree = "<group>"; };
 		073FC9DC1B40AAFB00EF316D /* CaptureUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureUtilities.swift; sourceTree = "<group>"; };
 		0740360D1B3F71090098A404 /* Screenotate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Screenotate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		074036111B3F71090098A404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -135,6 +133,7 @@
 		0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionWindow.swift; sourceTree = "<group>"; };
 		0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionView.swift; sourceTree = "<group>"; };
 		074036311B3F84420098A404 /* CaptureSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionController.swift; sourceTree = "<group>"; };
+		07AC58371B5393E600B1C61E /* MozRepl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MozRepl.swift; sourceTree = "<group>"; };
 		07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2.xcodeproj; path = OAuth2/OAuth2.xcodeproj; sourceTree = "<group>"; };
 		07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MASShortcut.xcodeproj; path = MASShortcut/MASShortcut.xcodeproj; sourceTree = "<group>"; };
 		07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -185,8 +184,6 @@
 		0740360F1B3F71090098A404 /* Screenotate */ = {
 			isa = PBXGroup;
 			children = (
-				073FC9D91B407FAC00EF316D /* UIElementUtilities.h */,
-				073FC9DA1B407FAC00EF316D /* UIElementUtilities.m */,
 				074036121B3F71090098A404 /* AppDelegate.swift */,
 				074036141B3F71090098A404 /* Images.xcassets */,
 				074036161B3F71090098A404 /* MainMenu.xib */,
@@ -197,6 +194,7 @@
 				07D2E07C1B3F9C5500D0F9E8 /* Bridging-Header.h */,
 				073FC9DC1B40AAFB00EF316D /* CaptureUtilities.swift */,
 				071E53D11B47CCF20078A508 /* DropboxLoader.swift */,
+				07AC58371B5393E600B1C61E /* MozRepl.swift */,
 			);
 			path = Screenotate;
 			sourceTree = "<group>";
@@ -416,9 +414,9 @@
 			files = (
 				074036131B3F71090098A404 /* AppDelegate.swift in Sources */,
 				074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */,
-				073FC9DB1B407FAC00EF316D /* UIElementUtilities.m in Sources */,
 				074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */,
 				0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */,
+				07AC58381B5393E600B1C61E /* MozRepl.swift in Sources */,
 				071E53D21B47CCF20078A508 /* DropboxLoader.swift in Sources */,
 				073FC9DD1B40AAFB00EF316D /* CaptureUtilities.swift in Sources */,
 			);
