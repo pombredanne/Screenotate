@@ -181,6 +181,9 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         windowTitle: String?, applicationTitle: String?,
         originPage: (String, String)?) {
 
+        let pdf = pngToPDF(data)
+        pdf.writeToFile("/Users/Omar/Desktop/foobar.pdf", atomically: true)
+
         let uri = "data:image/png;base64,\(data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros))"
         let uriSafe = uri
 

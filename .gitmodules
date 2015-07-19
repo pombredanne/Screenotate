@@ -4,3 +4,6 @@
 [submodule "MASShortcut"]
 	path = MASShortcut
 	url = https://github.com/shpakovski/MASShortcut
+[submodule "tesseract"]
+	path = tesseract
+	url = https://github.com/tesseract-ocr/tesseract.git
