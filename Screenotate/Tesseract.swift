@@ -11,7 +11,7 @@ import Foundation
 let resourcePath = NSBundle.mainBundle().resourcePath!
 let tesseractPath = resourcePath.stringByAppendingPathComponent("tesseract")
 
-func pngToPDF(png: NSData) -> NSData {
+func pngToText(png: NSData) -> String {
     // So we're going to use a hack here.
     // We're going to write png to a temporary file:
     let fileName = NSString(format: "%@_%@", NSProcessInfo.processInfo().globallyUniqueString, "tmp.png")
@@ -23,7 +23,7 @@ func pngToPDF(png: NSData) -> NSData {
     task.launchPath = tesseractPath
     task.arguments = [
         "--tessdata-dir", resourcePath,
-        fileURL.path!, "stdout", "pdf"
+        fileURL.path!, "stdout"
     ]
 
     let outPipe = NSPipe()
@@ -33,5 +33,5 @@ func pngToPDF(png: NSData) -> NSData {
 
     task.launch()
 
-    return outHandle.readDataToEndOfFile()
+    return NSString(data: outHandle.readDataToEndOfFile(), encoding: NSUTF8StringEncoding) as! String
 }

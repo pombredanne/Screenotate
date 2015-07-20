@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import Quartz
 
 class CaptureSelectionController: NSObject, NSWindowDelegate {
     var selectionWindowArray = [CaptureSelectionWindow]()
@@ -163,7 +164,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         // note that CGImageCreateWithImageInRect takes pixel rect, not point rect:
         // https://stackoverflow.com/questions/28469202/why-does-cgimagecreatewithimageinrect-take-a-cgrect-with-points-but-then-use-pix
         // so we need to convertRectToBacking
-        let mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, window.convertRectToBacking(window.selectionRect))
+        let cgRect = window.convertRectToBacking(window.selectionRect)
+        let mainCroppedCGImage = CGImageCreateWithImageInRect(mainCGImage, cgRect)
 
         var mainMutData = NSMutableData()
         let dspyDestType = "public.png"
@@ -180,9 +182,9 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     func saveScreenshot(data: NSData, height: CGFloat,
         windowTitle: String?, applicationTitle: String?,
         originPage: (String, String)?) {
-
-        let pdf = pngToPDF(data)
-        pdf.writeToFile("/Users/Omar/Desktop/foobar.pdf", atomically: true)
+        // 'height' is the point-height -- that is, it's what we should
+        // scale a Retina screenshot down to
+        let textSafe = htmlEncodeSafe(pngToText(data))
 
         let uri = "data:image/png;base64,\(data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros))"
         let uriSafe = uri
@@ -219,6 +221,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                             "<dd>\(windowTitleSafe)</dd>",
                             "<dt>App title</dt>",
                             "<dd>\(applicationTitleSafe)</dd>",
+                            "<dt>Text</dt>",
+                            "<dd><textarea>\(textSafe)</textarea></dd>",
                         "</dl>",
                     "</div>",
                 "</body>",
