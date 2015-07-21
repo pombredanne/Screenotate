@@ -222,7 +222,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                             "<dt>App title</dt>",
                             "<dd>\(applicationTitleSafe)</dd>",
                             "<dt>Text</dt>",
-                            "<dd><textarea>\(textSafe)</textarea></dd>",
+                            "<dd><pre>\(textSafe)</pre></dd>",
                         "</dl>",
                     "</div>",
                 "</body>",
@@ -266,8 +266,10 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                 // TODO report an error
             } else {
                 // copy shared link to clipboard
+                var url = dict!["url"] as! String
+                url += "&raw=1"
                 NSPasteboard.generalPasteboard().clearContents()
-                NSPasteboard.generalPasteboard().setString(dict!["url"] as! String, forType: NSPasteboardTypeString)
+                NSPasteboard.generalPasteboard().setString(url, forType: NSPasteboardTypeString)
             }
         })
     }
