@@ -201,7 +201,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         let heightSafe = height
 
-        let html = "\n".join([
+        let htmlLines = [
             "<html>",
                 "<head>",
                     "<title>\(windowTitleSafe), \(timestampSafe)</title>",
@@ -227,7 +227,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     "</div>",
                 "</body>",
             "</html>"
-            ])
+            ]
+        let html = NSArray(array: htmlLines).componentsJoinedByString("\n")
 
         // now we have to make the file in either Dropbox or folder
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -246,7 +247,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
                 } else {
                     // copy Dropbox share URL to clipboard
-                    self.copyShareURL(filename)
+                    self.copyShareURL(filename, title: windowTitle)
                 }
             })
 
@@ -260,7 +261,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
     }
 
-    func copyShareURL(filename: String) {
+    func copyShareURL(filename: String, title: String?) {
         loader.shares(filename, callback: { dict, error in
             if error != nil {
                 // TODO report an error
@@ -270,7 +271,21 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                 url += "&raw=1"
                 NSPasteboard.generalPasteboard().clearContents()
                 NSPasteboard.generalPasteboard().setString(url, forType: NSPasteboardTypeString)
+
+                self.showNotification(title)
             }
         })
+    }
+
+    func showNotification(title: String?) {
+        var notification = NSUserNotification()
+        notification.title = "Sharing Screenshot"
+        if let title = title {
+            notification.informativeText = "A link to your screenshot of '" + title + "' has been copied to the Clipboard."
+        } else {
+            notification.informativeText = "A link to your screenshot has been copied to the Clipboard."
+        }
+        notification.soundName = NSUserNotificationDefaultSoundName
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
     }
 }
