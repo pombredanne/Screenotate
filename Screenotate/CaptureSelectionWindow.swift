@@ -36,19 +36,10 @@ class CaptureSelectionWindow: NSWindow {
         }
     }
 
-    init?(scr: NSScreen) {
-        displayRect = scr.frame
-
-        // FIXME kind of hacky initial values
-        var dspyIDArray: [CGDirectDisplayID] = [0]
-        var dspyIDCount: UInt32 = 0
-
-        if Int(CGGetDisplaysWithRect(displayRect, 1, &dspyIDArray, &dspyIDCount)) == Int(kCGErrorSuccess.value) {
-            displayID = dspyIDArray[0]
-
-        } else {
-            fatalError("not able to find displays")
-        }
+    init?(screen: NSScreen) {
+        displayRect = screen.frame
+        let screenDescription = screen.deviceDescription
+        displayID = UInt32(screenDescription["NSScreenNumber"] as! Int)
 
         super.init(contentRect: displayRect, styleMask: NSBorderlessWindowMask, backing: NSBackingStoreType.Buffered, defer: true)
 
