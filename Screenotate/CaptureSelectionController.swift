@@ -148,9 +148,17 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         usleep(30000)
 
         var origin = window.originPoint
-        origin.y = window.frame.height - origin.y
+        origin.y = window.frame.height - origin.y // CG wants coordinates from top-left
+
+        let displayTopLeft = CGDisplayBounds(window.displayID).origin
+        // origin in global coordinates
+        let globalOrigin = NSPoint(
+            x: displayTopLeft.x + origin.x,
+            y: displayTopLeft.y + origin.y
+        )
+
         // figure out which window is under point
-        let windowUnderOrigin = windowUnderPoint(origin)
+        let windowUnderOrigin = windowUnderPoint(globalOrigin)
 
         let windowTitle = windowUnderOrigin?.name
         let applicationTitle = windowUnderOrigin?.ownerName
