@@ -82,7 +82,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
             let windowLayer = windowInfo["kCGWindowLayer"] as! Int
             let windowOwnerName = windowInfo["kCGWindowOwnerName"] as! String?
 
-            if windowOwnerName == "Dock" { // FIXME kind of a hack
+            if windowLayer != 0 { // throw out windows we don't care about
                 continue
             }
 
@@ -147,8 +147,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         
         usleep(30000)
 
-        let origin = window.originPoint
-
+        var origin = window.originPoint
+        origin.y = window.frame.height - origin.y
         // figure out which window is under point
         let windowUnderOrigin = windowUnderPoint(origin)
 
