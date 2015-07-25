@@ -22,6 +22,7 @@
                 <outlet property="preferencesWindow" destination="QvC-M9-y7g" id="Ugk-EJ-zzb"/>
                 <outlet property="saveScreenshotsToFolderRadio" destination="gwU-E8-z6Q" id="sPW-Si-BlJ"/>
                 <outlet property="shortcutView" destination="rmA-jM-yVX" id="JpN-wB-1QT"/>
+                <outlet property="showInDock" destination="wZ1-oo-plk" id="WdB-bx-5FQ"/>
                 <outlet property="statusMenu" destination="ZQM-3h-5aS" id="eue-O6-bHT"/>
                 <outlet property="uploadToDropboxRadio" destination="qL1-8g-riE" id="AXk-7G-UsK"/>
             </connections>
@@ -29,25 +30,41 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <window title="Screenotate Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="387" height="297"/>
+            <rect key="contentRect" x="335" y="390" width="387" height="325"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="-1" width="387" height="297"/>
+                <rect key="frame" x="0.0" y="-5" width="387" height="325"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rmA-jM-yVX" customClass="MASShortcutView">
-                        <rect key="frame" x="175" y="258" width="174" height="19"/>
+                        <rect key="frame" x="175" y="264" width="174" height="19"/>
                     </customView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4Y-TX-KYf">
-                        <rect key="frame" x="45" y="260" width="124" height="17"/>
+                        <rect key="frame" x="45" y="266" width="124" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Keyboard shortcut:" id="PjK-fu-xGf">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZ1-oo-plk">
+                        <rect key="frame" x="173" y="289" width="108" height="18"/>
+                        <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ujn-UN-19W">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="selectShowInDock:" target="Voe-Tx-rLC" id="ZTl-Ek-PCD"/>
+                        </connections>
+                    </button>
+                    <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dH2-4Z-tvk">
+                        <rect key="frame" x="20" y="253" width="343" height="5"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZqC-AW-nHC">
-                        <rect key="frame" x="18" y="233" width="151" height="17"/>
+                        <rect key="frame" x="18" y="229" width="151" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Screenshot destination:" id="zD8-ZH-tVj">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -55,7 +72,7 @@
                         </textFieldCell>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwU-E8-z6Q">
-                        <rect key="frame" x="174" y="229" width="195" height="23"/>
+                        <rect key="frame" x="174" y="225" width="195" height="23"/>
                         <buttonCell key="cell" type="radio" title="Save screenshots to folder:" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="H4B-Q9-uhk">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -65,7 +82,7 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qL1-8g-riE">
-                        <rect key="frame" x="174" y="173" width="200" height="32"/>
+                        <rect key="frame" x="174" y="169" width="200" height="32"/>
                         <buttonCell key="cell" type="radio" title="Copy as Dropbox link" bezelStyle="regularSquare" imagePosition="left" alignment="left" enabled="NO" inset="2" id="WJA-KK-7Ql">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -75,7 +92,7 @@
                         </connections>
                     </button>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbJ-kC-FdK">
-                        <rect key="frame" x="183" y="208" width="169" height="26"/>
+                        <rect key="frame" x="183" y="204" width="169" height="26"/>
                         <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="zGs-eB-65L">
                             <font key="font" metaFont="system"/>
                             <url key="url" string="file:///"/>
@@ -88,7 +105,7 @@
                         </connections>
                     </pathControl>
                     <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iYB-V1-uBd">
-                        <rect key="frame" x="183" y="125" width="169" height="26"/>
+                        <rect key="frame" x="183" y="121" width="169" height="26"/>
                         <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="hIB-gZ-Ssv">
                             <font key="font" metaFont="system"/>
                             <url key="url" string="file:///"/>
@@ -101,7 +118,7 @@
                         </connections>
                     </pathControl>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18B-iA-fLW">
-                        <rect key="frame" x="192" y="149" width="146" height="17"/>
+                        <rect key="frame" x="192" y="145" width="146" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="If offline, then save to:" id="zsb-id-wwU">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -109,7 +126,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hjA-6c-oMm">
-                        <rect key="frame" x="192" y="65" width="173" height="56"/>
+                        <rect key="frame" x="192" y="61" width="173" height="56"/>
                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Save to the Screenotate app folder in Dropbox so that offline and online screenshots end up in the same place." id="Fgd-rZ-Jxe">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -117,7 +134,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wx-ov-8Hj">
-                        <rect key="frame" x="188" y="17" width="181" height="32"/>
+                        <rect key="frame" x="188" y="13" width="181" height="32"/>
                         <buttonCell key="cell" type="push" title="Connect to Dropbox..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L5s-3L-pLo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -128,7 +145,7 @@
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="104.5" y="135.5"/>
+            <point key="canvasLocation" x="104.5" y="149.5"/>
         </window>
         <menu id="ZQM-3h-5aS">
             <items>

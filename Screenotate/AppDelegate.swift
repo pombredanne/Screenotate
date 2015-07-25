@@ -10,6 +10,7 @@ import Cocoa
 
 import MASShortcut
 
+let kShowInDock = "ShowInDock"
 let kKeyShortcut = "KeyShortcut"
 let kScreenshotDestination = "ScreenshotDestination" // folder or Dropbox?
 let kSaveFolder = "SaveFolder" // if folder, then what folder exactly?
@@ -21,8 +22,13 @@ let kScreenshotDestinationDropbox = "Dropbox"
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var statusBar: NSStatusItem?
     @IBOutlet weak var statusMenu: NSMenu!
+
     @IBOutlet weak var preferencesWindow: NSWindow!
+
+    // Show in Dock checkbox
+    @IBOutlet weak var showInDock: NSButton!
 
     // Global keyboard shortcut
     @IBOutlet weak var shortcutView: MASShortcutView!
@@ -44,20 +50,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var defaults = NSUserDefaults.standardUserDefaults()
 
-    var statusBar: NSStatusItem!
-
     var controller: CaptureSelectionController?
 
     let dropboxLoader = DropboxLoader.sharedInstance
 
-    override func awakeFromNib() {
+    func createStatusItem() {
         // NSVariableStatusItemLength isn't a symbol in 10.9 for some reason???
-        self.statusBar = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
-        self.statusBar.title = "S"
-//        self.statusBar.image = NSImage(named: "status")
+        let statusBar = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
+        statusBar.title = "S"
+//        statusBar.image = NSImage(named: "status")
 
-        self.statusBar.menu = self.statusMenu
-        self.statusBar.highlightMode = true
+        statusBar.menu = self.statusMenu
+        statusBar.highlightMode = true
+        self.statusBar = statusBar
     }
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
@@ -69,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             modifierFlags: (NSEventModifierFlags.CommandKeyMask | NSEventModifierFlags.ShiftKeyMask).rawValue
         )
         binder.registerDefaultShortcuts([kKeyShortcut: defaultShortcut])
-        binder.bindShortcutWithDefaultsKey(kKeyShortcut, toAction: self.handler)
+        binder.bindShortcutWithDefaultsKey(kKeyShortcut, toAction: self.takeScreenshot)
 
         updateAuthUI()
 
@@ -82,6 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let desktopPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
         defaults.registerDefaults([
+            kShowInDock: false,
             kScreenshotDestination: kScreenshotDestinationFolder,
             kSaveFolder: desktopPath,
             kOfflineDropboxSaveFolder: "~/Dropbox/Apps/Screenotate"
@@ -90,9 +96,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         offlineDropboxPathControl.URL = defaults.URLForKey(kOfflineDropboxSaveFolder)!
 
         updateDestinationUI()
+
+        updateActivationPolicy()
     }
     
-    func handler() {
+    func takeScreenshot() {
         NSApp.activateIgnoringOtherApps(true)
 
         controller = CaptureSelectionController()
@@ -101,7 +109,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func showPreferencesWindow(sender: AnyObject) {
         preferencesWindow.makeKeyAndOrderFront(self)
+        preferencesWindow.canHide = false // so doesn't vanish if Dock icon disabled
         NSApp.activateIgnoringOtherApps(true)
+    }
+
+    func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        // open prefs window on dock click
+        showPreferencesWindow(self)
+        return true
     }
 
     @IBAction func authToDropbox(sender: AnyObject) {
@@ -183,6 +198,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else if destination == kScreenshotDestinationDropbox {
             saveScreenshotsToFolderRadio.state = NSOffState
             uploadToDropboxRadio.state = NSOnState
+        }
+    }
+
+    @IBAction func selectShowInDock(sender: AnyObject) {
+        if showInDock.state == NSOnState {
+            defaults.setBool(true, forKey: kShowInDock)
+        } else {
+            defaults.setBool(false, forKey: kShowInDock)
+        }
+        updateActivationPolicy()
+    }
+
+    func updateActivationPolicy() {
+        if defaults.boolForKey(kShowInDock) {
+            showInDock.state = NSOnState
+            NSApp.setActivationPolicy(.Regular)
+            if statusBar != nil {
+                NSStatusBar.systemStatusBar().removeStatusItem(self.statusBar!)
+            }
+        } else {
+            showInDock.state = NSOffState
+            NSApp.setActivationPolicy(.Accessory)
+            createStatusItem()
         }
     }
 
