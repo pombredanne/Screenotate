@@ -13,8 +13,6 @@ import Quartz
 class CaptureSelectionController: NSObject, NSWindowDelegate {
     var selectionWindowArray = [CaptureSelectionWindow]()
     
-    let systemWideElement = AXUIElementCreateSystemWide().takeRetainedValue()
-
     let loader = DropboxLoader.sharedInstance
 
     func preCapture() {
@@ -295,7 +293,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         var notification = NSUserNotification()
         notification.title = "Screenshot Sharing Error"
-        notification.informativeText = "Saved to local folder instead. " + error
+        notification.informativeText = "Saved to local folder instead. \(error)"
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
     }
 
@@ -303,7 +301,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         var notification = NSUserNotification()
         notification.title = "Sharing Screenshot"
         if let title = title {
-            notification.informativeText = "A link to your screenshot of '" + title + "' has been copied to the Clipboard."
+            notification.informativeText = "A link to your screenshot of '\(title)' has been copied to the Clipboard."
         } else {
             notification.informativeText = "A link to your screenshot has been copied to the Clipboard."
         }
