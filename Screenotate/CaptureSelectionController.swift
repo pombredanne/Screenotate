@@ -200,7 +200,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         let filename = "Screenshot \(timestampSafe).html"
         let windowTitleSafe = windowTitle != nil ? htmlEncodeSafe(windowTitle!) : "[untitled]"
-        let applicationTitleSafe = applicationTitle != nil ? htmlEncodeSafe(applicationTitle!) : "Unknown"
+        let applicationTitleSafe = applicationTitle != nil ? htmlEncodeSafe(applicationTitle!) : "[unknown]"
 
         let heightSafe = height
 
@@ -243,9 +243,15 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         } else if destination == kScreenshotDestinationDropbox {
             loader.upload(filename, data: html.dataUsingEncoding(NSUTF8StringEncoding)!, callback: { dict, error in
-                if error != nil {
+                let url = defaults.URLForKey(kOfflineDropboxSaveFolder)!
+                if let error = error {
+                    self.showError(error.description)
+
                     // fall back on offline save
-                    let url = defaults.URLForKey(kOfflineDropboxSaveFolder)!
+                    self.saveToFolder(url, filename: filename, html: html)
+
+                } else if let error = dict!["error"] as? String {
+                    self.showError(error)
                     self.saveToFolder(url, filename: filename, html: html)
 
                 } else {
@@ -266,8 +272,12 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
     func copyShareURL(filename: String, title: String?) {
         loader.shares(filename, callback: { dict, error in
-            if error != nil {
-                // TODO report an error
+            if let error = error {
+                self.showError(error.description)
+
+            } else if let error = dict!["error"] as? String {
+                self.showError(error)
+
             } else {
                 // copy shared link to clipboard
                 var url = dict!["url"] as! String
@@ -278,6 +288,15 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                 self.showNotification(title)
             }
         })
+    }
+
+    func showError(error: String) {
+        println(error)
+
+        var notification = NSUserNotification()
+        notification.title = "Screenshot Sharing Error"
+        notification.informativeText = "Saved to local folder instead. " + error
+        NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
     }
 
     func showNotification(title: String?) {
