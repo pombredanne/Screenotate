@@ -205,6 +205,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         let htmlLines = [
             "<html>",
                 "<head>",
+                    "<meta charset=\"UTF-8\">",
                     "<title>\(windowTitleSafe), \(timestampSafe)</title>",
                 "</head>",
                 "<body>",
