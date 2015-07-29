@@ -97,12 +97,12 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         return windowUnderPoint
     }
 
-    func frontmostPageOfBrowser(applicationTitle: String) -> (url: String, title: String)? {
+    func frontmostPageOfBrowser(applicationTitle: String) -> String? {
         // Note: assumption here that screenshotted tab is frontmost
         // in browser's frontmost window.
         // This fits my personal screenshot flow, but it's a definite
         // disadvantage compared to accessibility which can query any window.
-        var pageTitle, pageURL: String!
+        var pageURL: String?
 
         if applicationTitle.rangeOfString("Firefox") != nil {
             // :|
@@ -118,7 +118,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
             return nil
         }
 
-        return (pageURL, "")
+        return pageURL
     }
 
     func executeScript(script: String) -> String? {
@@ -162,7 +162,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         let applicationTitle = windowUnderOrigin?.ownerName
 
         // if it's a browser window, we maybe can also get the URL
-        let originPage = applicationTitle != nil ? frontmostPageOfBrowser(applicationTitle!) : nil
+        let originPageURL = applicationTitle != nil ? frontmostPageOfBrowser(applicationTitle!) : nil
 
         // actually take the screenshot
         let mainID = window.displayID
@@ -177,12 +177,12 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
         saveScreenshot(mainMutData, height: window.selectionRect.height,
             windowTitle: windowTitle, applicationTitle: applicationTitle,
-            originPage: originPage)
+            originPageURL: originPageURL)
     }
 
     func saveScreenshot(data: NSData, height: CGFloat,
         windowTitle: String?, applicationTitle: String?,
-        originPage: (String, String)?) {
+        originPageURL: String?) {
         // 'height' is the point-height -- that is, it's what we should
         // scale a Retina screenshot down to
         let textSafe = htmlEncodeSafe(pngToText(data))
@@ -214,8 +214,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     "</div>",
                     "<div>",
                         "<dl>",
-                            originPage != nil ?
-                                "<dt>URL</dt><dd><a href=\"\(htmlEncodeSafe(originPage!.0))\">\(htmlEncodeSafe(originPage!.0))</a></dd>" :
+                            originPageURL != nil ?
+                                "<dt>URL</dt><dd><a href=\"\(htmlEncodeSafe(originPageURL!))\">\(htmlEncodeSafe(originPageURL!))</a></dd>" :
                                 "",
                             "<dt>Timestamp</dt>",
                             "<dd>\(timestampSafe)</dd>",

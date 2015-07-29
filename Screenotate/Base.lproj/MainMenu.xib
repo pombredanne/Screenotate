@@ -30,10 +30,10 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <window title="Screenotate Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="387" height="325"/>
+            <rect key="contentRect" x="335" y="390" width="387" height="347"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="-5" width="387" height="325"/>
+                <rect key="frame" x="0.0" y="5" width="387" height="347"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rmA-jM-yVX" customClass="MASShortcutView">
@@ -143,9 +143,16 @@
                             <action selector="authToDropbox:" target="Voe-Tx-rLC" id="l4Y-Kp-fvI"/>
                         </connections>
                     </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z12-gm-Ul0">
+                        <rect key="frame" x="173" y="311" width="197" height="18"/>
+                        <buttonCell key="cell" type="check" title="Launch Screenotate at login" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="X5O-GU-7m2">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="104.5" y="149.5"/>
+            <point key="canvasLocation" x="104.5" y="160.5"/>
         </window>
         <menu id="ZQM-3h-5aS">
             <items>
@@ -162,6 +169,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="184.5" y="-114.5"/>
         </menu>
     </objects>
 </document>
