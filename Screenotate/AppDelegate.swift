@@ -58,6 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // NSVariableStatusItemLength isn't a symbol in 10.9 for some reason???
         let statusBar = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
         statusBar.image = NSImage(named: "ic_photo_camera")
+        statusBar.image?.setTemplate(true)
 
         statusBar.menu = self.statusMenu
         statusBar.highlightMode = true
