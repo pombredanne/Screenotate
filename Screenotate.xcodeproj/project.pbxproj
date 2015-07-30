@@ -16,6 +16,7 @@
 		0740362E1B3F740E0098A404 /* CaptureSelectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */; };
 		074036301B3F7C560098A404 /* CaptureSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */; };
 		074036321B3F84420098A404 /* CaptureSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074036311B3F84420098A404 /* CaptureSelectionController.swift */; };
+		0747BF351B6A29DC0031CBA2 /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0747BF341B6A29DC0031CBA2 /* NSBundle+LoginItem.m */; };
 		075ED2981B5A48DC00B04B51 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 075ED2971B5A48DC00B04B51 /* tessdata */; };
 		07AC58381B5393E600B1C61E /* MozRepl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AC58371B5393E600B1C61E /* MozRepl.swift */; };
 		07C8F4C41B4769EB00922F85 /* OAuth2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C8F4B51B47693600922F85 /* OAuth2.framework */; };
@@ -136,6 +137,8 @@
 		0740362D1B3F740E0098A404 /* CaptureSelectionWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionWindow.swift; sourceTree = "<group>"; };
 		0740362F1B3F7C560098A404 /* CaptureSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionView.swift; sourceTree = "<group>"; };
 		074036311B3F84420098A404 /* CaptureSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSelectionController.swift; sourceTree = "<group>"; };
+		0747BF331B6A29DC0031CBA2 /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+LoginItem.h"; path = "NSBundle-LoginItem/Pod/Classes/NSBundle+LoginItem.h"; sourceTree = "<group>"; };
+		0747BF341B6A29DC0031CBA2 /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+LoginItem.m"; path = "NSBundle-LoginItem/Pod/Classes/NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		075ED2971B5A48DC00B04B51 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tessdata; path = tesseract/tessdata; sourceTree = SOURCE_ROOT; };
 		07AC58371B5393E600B1C61E /* MozRepl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MozRepl.swift; sourceTree = "<group>"; };
 		07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuth2.xcodeproj; path = OAuth2/OAuth2.xcodeproj; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 		074036041B3F71090098A404 = {
 			isa = PBXGroup;
 			children = (
+				0747BF331B6A29DC0031CBA2 /* NSBundle+LoginItem.h */,
+				0747BF341B6A29DC0031CBA2 /* NSBundle+LoginItem.m */,
 				07C8F4A21B47693600922F85 /* OAuth2.xcodeproj */,
 				07C8F4A51B47693600922F85 /* MASShortcut.xcodeproj */,
 				0740360F1B3F71090098A404 /* Screenotate */,
@@ -436,6 +441,7 @@
 				07AC58381B5393E600B1C61E /* MozRepl.swift in Sources */,
 				071E53D21B47CCF20078A508 /* DropboxLoader.swift in Sources */,
 				073FC9DD1B40AAFB00EF316D /* CaptureUtilities.swift in Sources */,
+				0747BF351B6A29DC0031CBA2 /* NSBundle+LoginItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,8 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var preferencesWindow: NSWindow!
 
-    // Show in Dock checkbox
-    @IBOutlet weak var showInDock: NSButton!
+    @IBOutlet weak var launchAtLoginCheckbox: NSButton!
+    @IBOutlet weak var showInDockCheckbox: NSButton!
 
     // Global keyboard shortcut
     @IBOutlet weak var shortcutView: MASShortcutView!
@@ -96,9 +96,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         updateDestinationUI()
 
-        updateActivationPolicy()
+        // 'launch at login'
+        self.launchAtLoginCheckbox.state = NSBundle.mainBundle().isLoginItemEnabled() ? NSOnState : NSOffState
+
+        updateActivationPolicy() // 'show in dock'
     }
-    
+
     func takeScreenshot() {
         NSApp.activateIgnoringOtherApps(true)
 
@@ -200,8 +203,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    @IBAction func selectLaunchAtLogin(sender: AnyObject) {
+        switch launchAtLoginCheckbox.state {
+        case NSOnState:
+            NSBundle.mainBundle().enableLoginItem()
+        case NSOffState:
+            NSBundle.mainBundle().disableLoginItem()
+        default:
+            break
+        }
+    }
+
     @IBAction func selectShowInDock(sender: AnyObject) {
-        if showInDock.state == NSOnState {
+        if showInDockCheckbox.state == NSOnState {
             defaults.setBool(true, forKey: kShowInDock)
         } else {
             defaults.setBool(false, forKey: kShowInDock)
@@ -211,13 +225,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func updateActivationPolicy() {
         if defaults.boolForKey(kShowInDock) {
-            showInDock.state = NSOnState
+            showInDockCheckbox.state = NSOnState
             NSApp.setActivationPolicy(.Regular)
             if statusBar != nil {
                 NSStatusBar.systemStatusBar().removeStatusItem(self.statusBar!)
             }
         } else {
-            showInDock.state = NSOffState
+            showInDockCheckbox.state = NSOffState
             NSApp.setActivationPolicy(.Accessory)
             createStatusItem()
         }

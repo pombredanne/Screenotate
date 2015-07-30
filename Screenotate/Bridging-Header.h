@@ -12,5 +12,6 @@
 #import <Cocoa/Cocoa.h>
 #import <MASShortcut.h>
 #import <MASShortcutMonitor.h>
+#import "NSBundle+LoginItem.h"
 
 #endif

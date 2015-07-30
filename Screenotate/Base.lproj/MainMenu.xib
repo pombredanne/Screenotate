@@ -17,12 +17,13 @@
                 <outlet property="appFolderLabel" destination="hjA-6c-oMm" id="Xdx-cp-WIQ"/>
                 <outlet property="authButton" destination="7wx-ov-8Hj" id="ei4-2t-iN2"/>
                 <outlet property="ifOfflineLabel" destination="18B-iA-fLW" id="vy4-Gf-uyH"/>
+                <outlet property="launchAtLoginCheckbox" destination="Z12-gm-Ul0" id="1hd-R1-GVs"/>
                 <outlet property="offlineDropboxPathControl" destination="iYB-V1-uBd" id="cA3-Gw-SJZ"/>
                 <outlet property="pathControl" destination="SbJ-kC-FdK" id="J0g-Ab-5gc"/>
                 <outlet property="preferencesWindow" destination="QvC-M9-y7g" id="Ugk-EJ-zzb"/>
                 <outlet property="saveScreenshotsToFolderRadio" destination="gwU-E8-z6Q" id="sPW-Si-BlJ"/>
                 <outlet property="shortcutView" destination="rmA-jM-yVX" id="JpN-wB-1QT"/>
-                <outlet property="showInDock" destination="wZ1-oo-plk" id="WdB-bx-5FQ"/>
+                <outlet property="showInDockCheckbox" destination="wZ1-oo-plk" id="fEr-k2-ksS"/>
                 <outlet property="statusMenu" destination="ZQM-3h-5aS" id="eue-O6-bHT"/>
                 <outlet property="uploadToDropboxRadio" destination="qL1-8g-riE" id="AXk-7G-UsK"/>
             </connections>
@@ -49,7 +50,7 @@
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZ1-oo-plk">
                         <rect key="frame" x="173" y="289" width="108" height="18"/>
-                        <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ujn-UN-19W">
+                        <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ujn-UN-19W">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -145,10 +146,13 @@
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z12-gm-Ul0">
                         <rect key="frame" x="173" y="311" width="197" height="18"/>
-                        <buttonCell key="cell" type="check" title="Launch Screenotate at login" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="X5O-GU-7m2">
+                        <buttonCell key="cell" type="check" title="Launch Screenotate at login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="X5O-GU-7m2">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="selectLaunchAtLogin:" target="Voe-Tx-rLC" id="HH3-bD-Qe5"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
