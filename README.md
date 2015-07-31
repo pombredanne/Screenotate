@@ -66,3 +66,7 @@ Tesseract needs to be built as a static library, and it needs
 leptonica, libpng, and a bunch of other libraries; the process is
 somewhat tricky.
 
+## License
+
+Screenotate is licensed under the [GNU General Public License, version
+3.0](LICENSE.txt).
