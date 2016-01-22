@@ -16,10 +16,10 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     let loader = DropboxLoader.sharedInstance
 
     func preCapture() {
-        let screens = NSScreen.screens() as! [NSScreen]
+        let screens = NSScreen.screens() as [NSScreen]!
 
         for screen in screens {
-            var selectionWindow: CaptureSelectionWindow = CaptureSelectionWindow.init(screen: screen)!
+            let selectionWindow: CaptureSelectionWindow = CaptureSelectionWindow.init(screen: screen)!
 
             selectionWindowArray.append(selectionWindow)
             
@@ -28,14 +28,14 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
             selectionWindow.display()
         }
 
-        var mouse: NSPoint = NSEvent.mouseLocation()
-        var mouseX = mouse.x
-        var mouseY = mouse.y
+        let mouse: NSPoint = NSEvent.mouseLocation()
+        let mouseX = mouse.x
+        let mouseY = mouse.y
         for window in selectionWindowArray {
-            var windowXMin = window.displayRect.origin.x
-            var windowXMax = windowXMin + window.displayRect.size.width
-            var windowYMin = window.displayRect.origin.y
-            var windowYMax = windowYMin + window.displayRect.size.height
+            let windowXMin = window.displayRect.origin.x
+            let windowXMax = windowXMin + window.displayRect.size.width
+            let windowYMin = window.displayRect.origin.y
+            let windowYMax = windowYMin + window.displayRect.size.height
 
             if (windowXMin < mouseX && mouseX < windowXMax) {
                 if (windowYMin < mouseY && mouseY < windowYMax) {
@@ -54,7 +54,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     window.close()
                 }
                 
-                let contentView = window.contentView as! NSView
+                let contentView = window.contentView as NSView!
                 contentView.hidden = true
             }
             
@@ -67,8 +67,8 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     }
 
     func windowUnderPoint(point: NSPoint) -> (name: String?, ownerName: String?)? {
-        let infoRef = CGWindowListCopyWindowInfo(CGWindowListOption(kCGWindowListOptionOnScreenOnly), CGWindowID(0))
-        let info = infoRef.takeRetainedValue() as! Array<NSDictionary>
+        let infoRef = CGWindowListCopyWindowInfo(CGWindowListOption.OptionOnScreenOnly, CGWindowID(0))
+        let info = infoRef as! Array<NSDictionary>!
 
         var windowUnderPoint: (name: String?, ownerName: String?)?
 
@@ -168,11 +168,11 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         let mainID = window.displayID
         let mainCroppedCGImage = CGDisplayCreateImageForRect(mainID, window.selectionRect)
 
-        var mainMutData = NSMutableData()
+        let mainMutData = NSMutableData()
         let dspyDestType = "public.png"
-        var mainDest = CGImageDestinationCreateWithData(mainMutData, dspyDestType, 1, nil)
+        let mainDest = CGImageDestinationCreateWithData(mainMutData, dspyDestType, 1, nil)!
 
-        CGImageDestinationAddImage(mainDest, mainCroppedCGImage.takeUnretainedValue(), nil)
+        CGImageDestinationAddImage(mainDest, mainCroppedCGImage!, nil)
         CGImageDestinationFinalize(mainDest)
 
         saveScreenshot(mainMutData, height: window.selectionRect.height,
@@ -187,7 +187,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         // scale a Retina screenshot down to
         let textSafe = htmlEncodeSafe(pngToText(data))
 
-        let uri = "data:image/png;base64,\(data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros))"
+        let uri = "data:image/png;base64,\(data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions()))"
         let uriSafe = uri
 
         let date = NSDate()
@@ -265,8 +265,11 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     }
 
     func saveToFolder(url: NSURL, filename: String, html: String) {
-        let path = url.path!.stringByAppendingPathComponent(filename)
-        html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+        let path = (url.path! as NSString).stringByAppendingPathComponent(filename)
+        do {
+            try html.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding)
+        } catch _ {
+        }
     }
 
     func copyShareURL(filename: String, title: String?) {
@@ -290,16 +293,16 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
     }
 
     func showError(error: String) {
-        println(error)
+        print(error)
 
-        var notification = NSUserNotification()
+        let notification = NSUserNotification()
         notification.title = "Screenshot Sharing Error"
         notification.informativeText = "Saved to local folder instead. \(error)"
         NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(notification)
     }
 
     func showNotification(title: String?) {
-        var notification = NSUserNotification()
+        let notification = NSUserNotification()
         notification.title = "Sharing Screenshot"
         if let title = title {
             notification.informativeText = "A link to your screenshot of '\(title)' has been copied to the Clipboard."

@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // NSVariableStatusItemLength isn't a symbol in 10.9 for some reason???
         let statusBar = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
         statusBar.image = NSImage(named: "ic_photo_camera")
-        statusBar.image?.setTemplate(true)
+        statusBar.image?.template = true
 
         statusBar.menu = self.statusMenu
         statusBar.highlightMode = true
@@ -71,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let defaultShortcut = MASShortcut(
             keyCode: UInt(kVK_ANSI_5),
-            modifierFlags: (NSEventModifierFlags.CommandKeyMask | NSEventModifierFlags.ShiftKeyMask).rawValue
+            modifierFlags: (NSEventModifierFlags.CommandKeyMask.union(NSEventModifierFlags.ShiftKeyMask)).rawValue
         )
         binder.registerDefaultShortcuts([kKeyShortcut: defaultShortcut])
         binder.bindShortcutWithDefaultsKey(kKeyShortcut, toAction: self.takeScreenshot)
@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             andEventID: AEEventID(kAEGetURL)
         )
 
-        let desktopPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        let desktopPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] 
         defaults.registerDefaults([
             kShowInDock: false,
             kScreenshotDestination: kScreenshotDestinationFolder,

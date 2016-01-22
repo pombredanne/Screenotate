@@ -62,8 +62,8 @@ class MozRepl {
         send("content.location.href")
         let ret = readURL()
         return ret.substringWithRange(Range(
-            start: advance(ret.startIndex, 1),
-            end: advance(ret.endIndex, -2)
+            start: ret.startIndex.advancedBy(1),
+            end: ret.endIndex.advancedBy(-2)
             ))
     }
 

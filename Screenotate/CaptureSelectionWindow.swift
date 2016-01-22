@@ -41,9 +41,9 @@ class CaptureSelectionWindow: NSWindow {
         let screenDescription = screen.deviceDescription
         displayID = UInt32(screenDescription["NSScreenNumber"] as! Int)
 
-        super.init(contentRect: displayRect, styleMask: NSBorderlessWindowMask, backing: NSBackingStoreType.Buffered, defer: true)
+        super.init(contentRect: displayRect, styleMask: NSBorderlessWindowMask, backing: NSBackingStoreType.Buffered, `defer`: true)
 
-        self.level = Int(CGWindowLevelForKey(Int32(kCGMainMenuWindowLevelKey))) + 1
+        self.level = Int(CGWindowLevelForKey(CGWindowLevelKey.MainMenuWindowLevelKey)) + 1
         self.opaque = false
         self.backgroundColor = NSColor.whiteColor().colorWithAlphaComponent(0.1)
         self.releasedWhenClosed = false
@@ -56,7 +56,7 @@ class CaptureSelectionWindow: NSWindow {
 
         selectionView = CaptureSelectionView()
 
-        trackingArea = NSTrackingArea(rect: NSMakeRect(0, 0, displayRect.size.width, displayRect.size.height), options: NSTrackingAreaOptions.ActiveAlways | NSTrackingAreaOptions.MouseMoved | NSTrackingAreaOptions.MouseEnteredAndExited, owner: self, userInfo: nil)
+        trackingArea = NSTrackingArea(rect: NSMakeRect(0, 0, displayRect.size.width, displayRect.size.height), options: [NSTrackingAreaOptions.ActiveAlways, NSTrackingAreaOptions.MouseMoved, NSTrackingAreaOptions.MouseEnteredAndExited], owner: self, userInfo: nil)
     }
 
     // FIXME ???
@@ -66,7 +66,7 @@ class CaptureSelectionWindow: NSWindow {
 
     override func display() {
         NSCursor.crosshairCursor().set()
-        let contentView = self.contentView as! NSView
+        let contentView = self.contentView as NSView!
         contentView.addTrackingArea(trackingArea)
         super.display()
     }
@@ -86,7 +86,7 @@ class CaptureSelectionWindow: NSWindow {
         viewRect = NSMakeRect(originPoint.x, originPoint.y, 0, 0)
         selectionView.frame = viewRect
         
-        let contentView = self.contentView as! NSView
+        let contentView = self.contentView as NSView!
         contentView.addSubview(selectionView)
         
         NSCursor.crosshairCursor().set()

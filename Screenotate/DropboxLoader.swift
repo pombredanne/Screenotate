@@ -22,21 +22,15 @@ class DropboxLoader {
     }
 
     lazy var appKey = NSBundle.mainBundle().objectForInfoDictionaryKey("DropboxAppKey") as! String
-    lazy var oauth2: OAuth2ImplicitGrant = {
-        let settings = [
+    lazy var oauth2: OAuth2ImplicitGrant = OAuth2ImplicitGrant(settings: [
             "client_id": self.appKey,
             "authorize_uri": "https://www.dropbox.com/1/oauth2/authorize",
             "token_uri": "https://api.dropbox.com/1/oauth2/token",
-            "redirect_uris": ["db-" + self.appKey + "://oauth/callback"]
-            ] as OAuth2JSON
+            "redirect_uris": ["db-" + self.appKey + "://oauth/callback"],
+            "title": "Screenotate"
+            ] as OAuth2JSON)
 
-        let oauth2 = OAuth2ImplicitGrant(settings: settings)
-        oauth2.viewTitle = "Screenotate"
-
-        return oauth2
-    }()
-
-    func authToDropbox(callback: (wasFailure: Bool, error: NSError?) -> Void) {
+    func authToDropbox(callback: (wasFailure: Bool, error: ErrorType?) -> Void) {
         oauth2.afterAuthorizeOrFailure = { wasFailure, error in
             if !wasFailure {
                 self.request("account/info", callback: { dict, error in
@@ -94,10 +88,13 @@ class DropboxLoader {
                 }
             }
             else {
-                var err: NSError?
-                let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &err) as? NSDictionary
-                dispatch_async(dispatch_get_main_queue()) {
-                    callback(dict: dict, error: err)
+                do {
+                    let dict = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()) as? NSDictionary
+                    dispatch_async(dispatch_get_main_queue()) {
+                        callback(dict: dict, error: nil)
+                    }
+                } catch let err as NSError {
+                    callback(dict: nil, error: err)
                 }
             }
         }

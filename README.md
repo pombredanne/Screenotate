@@ -69,8 +69,8 @@ from.
 
 ## Credits and building tips
 
-Remember to initialize the submodules. Then just build the Xcode
-project.
+Remember to initialize the submodules (`git submodule update --init
+--recursive`). Then just build the Xcode project.
 
 This project uses
 [MASShortcut](https://github.com/shpakovski/MASShortcut),
