@@ -68,7 +68,7 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
 
     func windowUnderPoint(point: NSPoint) -> (name: String?, ownerName: String?)? {
         let infoRef = CGWindowListCopyWindowInfo(CGWindowListOption.OptionOnScreenOnly, CGWindowID(0))
-        let info = infoRef as! Array<NSDictionary>!
+        let info = infoRef as NSArray? as! [[String: AnyObject]]
 
         var windowUnderPoint: (name: String?, ownerName: String?)?
 
