@@ -12,6 +12,7 @@ import MASShortcut
 
 let kShowInDock = "ShowInDock"
 let kKeyShortcut = "KeyShortcut"
+let kCopyShortcut = "CopyShortcut"
 let kScreenshotDestination = "ScreenshotDestination" // folder or Dropbox?
 let kSaveFolder = "SaveFolder" // if folder, then what folder exactly?
 let kOfflineDropboxSaveFolder = "OfflineDropboxSaveFolder" // if Dropbox, then where do we save if offline?
@@ -32,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Global keyboard shortcut
     @IBOutlet weak var shortcutView: MASShortcutView!
+    @IBOutlet weak var copyShortcutView: MASShortcutView!
 
     // Folder save options
     @IBOutlet weak var pathControl: NSPathControl!
@@ -68,13 +70,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         let binder = MASShortcutBinder.sharedBinder()
         shortcutView.associatedUserDefaultsKey = kKeyShortcut
+        copyShortcutView.associatedUserDefaultsKey = kCopyShortcut
 
         let defaultShortcut = MASShortcut(
             keyCode: UInt(kVK_ANSI_5),
             modifierFlags: (NSEventModifierFlags.CommandKeyMask.union(NSEventModifierFlags.ShiftKeyMask)).rawValue
         )
-        binder.registerDefaultShortcuts([kKeyShortcut: defaultShortcut])
+        let defaultCopyShortcut = MASShortcut(
+            keyCode: UInt(kVK_ANSI_5),
+            modifierFlags: NSEventModifierFlags.CommandKeyMask.union(NSEventModifierFlags.ShiftKeyMask).union(NSEventModifierFlags.ControlKeyMask).rawValue
+        )
+        
+        binder.registerDefaultShortcuts([kKeyShortcut: defaultShortcut, kCopyShortcut: defaultCopyShortcut])
         binder.bindShortcutWithDefaultsKey(kKeyShortcut, toAction: self.takeScreenshot)
+        binder.bindShortcutWithDefaultsKey(kCopyShortcut, toAction: self.takeScreenshotAndCopy)
 
         updateAuthUI()
 
@@ -107,6 +116,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activateIgnoringOtherApps(true)
 
         controller = CaptureSelectionController()
+        controller?.preCapture()
+    }
+
+    func takeScreenshotAndCopy() {
+        NSApp.activateIgnoringOtherApps(true)
+        
+        controller = CaptureSelectionController(copy: true)
         controller?.preCapture()
     }
 

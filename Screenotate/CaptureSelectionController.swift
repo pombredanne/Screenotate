@@ -11,9 +11,15 @@ import Cocoa
 import Quartz
 
 class CaptureSelectionController: NSObject, NSWindowDelegate {
+    var copyScreenshot: Bool
+
     var selectionWindowArray = [CaptureSelectionWindow]()
-    
+
     let loader = DropboxLoader.sharedInstance
+
+    init(copy: Bool = false) {
+        self.copyScreenshot = copy
+    }
 
     func preCapture() {
         let screens = NSScreen.screens() as [NSScreen]!
@@ -167,6 +173,16 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
         // actually take the screenshot
         let mainID = window.displayID
         let mainCroppedCGImage = CGDisplayCreateImageForRect(mainID, window.selectionRect)
+        
+        // if we want to copy image to clipboard, do that now
+        if self.copyScreenshot {
+            let pb = NSPasteboard.generalPasteboard()
+            pb.clearContents()
+            let copiedObjects = NSArray(object: NSImage(CGImage: mainCroppedCGImage as CGImage!, size: NSZeroSize))
+            pb.writeObjects(copiedObjects as! [NSPasteboardWriting])
+        }
+
+        // now convert to NSData (so it can turn into data URI) and save it
 
         let mainMutData = NSMutableData()
         let dspyDestType = "public.png"
@@ -253,14 +269,18 @@ class CaptureSelectionController: NSObject, NSWindowDelegate {
                     self.showError(error)
                     self.saveToFolder(url, filename: filename, html: html)
 
-                } else {
+                } else if !self.copyScreenshot {
                     // copy Dropbox share URL to clipboard
                     self.copyShareURL(filename, title: windowTitle)
                 }
             })
 
-            // clear clipboard
-            NSPasteboard.generalPasteboard().clearContents()
+            if !self.copyScreenshot {
+                // clear clipboard before Dropbox upload
+                // so user doesn't accidentally paste last thing on it
+                // before we can copy the link
+                NSPasteboard.generalPasteboard().clearContents()
+            }
         }
     }
 
